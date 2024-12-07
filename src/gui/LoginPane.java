@@ -2,6 +2,7 @@ package gui;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -140,6 +141,10 @@ public class LoginPane extends AnchorPane {
             ImageView imageView = new ImageView(new Image(
                 ClassLoader.getSystemResource(isMusicPlaying ? "sound_on.png" : "sound_off.png").toString()
             ));
+            imageView.setPreserveRatio(true);
+            imageView.setSmooth(false);
+            imageView.setCache(false);
+            imageView.setCacheHint(CacheHint.SPEED);
             imageView.setFitWidth(SOUND_BUTTON_SIZE);
             imageView.setFitHeight(SOUND_BUTTON_SIZE);
             musicButton.setGraphic(imageView);

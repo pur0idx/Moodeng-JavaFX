@@ -39,11 +39,10 @@ public class AboutPane extends BorderPane {
     }
     
     private void createContent() {
-        // Main content container
-        VBox contentBox = new VBox(20);  // Reduced spacing from 30 to 20
+        VBox contentBox = new VBox(20);
         contentBox.setAlignment(Pos.CENTER);
-        contentBox.setMaxWidth(700);     // Reduced from 800 to 700
-        contentBox.setPadding(new Insets(30));  // Reduced padding from 40 to 30
+        contentBox.setMaxWidth(700);
+        contentBox.setPadding(new Insets(30));
         contentBox.setStyle(
             "-fx-background-color: rgba(0, 0, 0, 0.8);" +
             "-fx-border-color: #333333;" +
@@ -52,19 +51,16 @@ public class AboutPane extends BorderPane {
             "-fx-background-radius: 10;"
         );
 
-        // Title
         Text title = new Text("HOW TO PLAY");
-        title.setFont(Font.font("Monospace", FontWeight.BOLD, 32));  // Reduced from 36 to 32
+        title.setFont(Font.font("Monospace", FontWeight.BOLD, 32));
         title.setFill(Color.WHITE);
         title.setEffect(new DropShadow(10, Color.GOLD));
         
-        // Game instructions sections
         VBox instructionsBox = createInstructionsBox();
         
-        // Back button
-        Button backButton = new Button("BACK TO MAP SELECTION");  // Changed text
+        Button backButton = new Button("BACK TO MAP SELECTION");
         backButton.setFont(Font.font("Monospace", FontWeight.BOLD, 18));
-        backButton.setPrefWidth(250);  // Increased width for new text
+        backButton.setPrefWidth(250);
         setupButtonStyle(backButton);
         
         backButton.setOnAction(e -> {
@@ -77,16 +73,14 @@ public class AboutPane extends BorderPane {
 
         contentBox.getChildren().addAll(title, instructionsBox, backButton);
         
-        // Center the content box
         BorderPane.setAlignment(contentBox, Pos.CENTER);
         setCenter(contentBox);
     }
     
     private VBox createInstructionsBox() {
-        VBox box = new VBox(15);  // Reduced spacing from 20 to 15
+        VBox box = new VBox(15);
         box.setAlignment(Pos.CENTER_LEFT);
         
-        // Add instruction sections with more concise content
         addSection(box, "OBJECTIVE", 
             "Navigate through dangers, collect coins, and survive obstacles to achieve the highest score!");
                 

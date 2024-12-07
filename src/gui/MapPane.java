@@ -52,7 +52,6 @@ public class MapPane extends BorderPane {
     }
     
     private void createContent() {
-        // Create a container for the actual content
         VBox contentBox = new VBox(40);
         contentBox.setAlignment(Pos.CENTER);
         contentBox.setPadding(new javafx.geometry.Insets(40));
@@ -64,7 +63,6 @@ public class MapPane extends BorderPane {
             "-fx-background-radius: 10;"
         );
 
-        // Back button
         Button backButton = new Button("BACK TO LOGIN");
         backButton.setFont(Font.font("Monospace", FontWeight.BOLD, 18));
         backButton.setPrefWidth(200);
@@ -80,7 +78,6 @@ public class MapPane extends BorderPane {
             }
         });
         
-        // Welcome text and other content
         Text welcomeText = new Text(" WELCOME, " + LoginPane.getPlayerName().toUpperCase() + "!");
         welcomeText.setFont(Font.font("Monospace", FontWeight.BOLD, 32));
         welcomeText.setFill(Color.WHITE);
@@ -105,7 +102,6 @@ public class MapPane extends BorderPane {
             }
         });
         
-        // Add all elements to the content box
         contentBox.getChildren().addAll(
             backButton,
             welcomeText,
@@ -113,12 +109,10 @@ public class MapPane extends BorderPane {
             aboutButton
         );
 
-        // Create the left panel as a container for the content box
         VBox leftPanel = new VBox(contentBox);
         leftPanel.setAlignment(Pos.CENTER);
         BorderPane.setMargin(leftPanel, new javafx.geometry.Insets(0, 0, 0, 100));
 
-        // Rest of your content setup...
         GridPane mapsGrid = createMapsGrid();
         mapsGrid.setAlignment(Pos.CENTER);
         mapsGrid.setHgap(20);
@@ -185,19 +179,16 @@ public class MapPane extends BorderPane {
             System.err.println("Failed to load map image: " + e.getMessage());
         }
         
-        // Map Title
         Text mapTitle = new Text(MAP_NAMES[index].toUpperCase());
         mapTitle.setFont(Font.font("Monospace", FontWeight.BOLD, 22));
         mapTitle.setFill(Color.WHITE);
         
-        // Map Description
         Text description = new Text(MAP_DESCRIPTIONS[index]);
         description.setFont(Font.font("Monospace", FontWeight.NORMAL, 14));
         description.setFill(Color.LIGHTGRAY);
         description.setTextAlignment(TextAlignment.CENTER);
         description.setWrappingWidth(230);
         
-        // Play Button
         Button playButton = createPlayButton(index);
         playButton.setPrefWidth(180);
         
