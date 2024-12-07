@@ -17,9 +17,9 @@ import sound.PlaySound;
 
 public class LoginPane extends GridPane {
     private static LoginPane instance;
-    private static String playerName = "";
+    private static String playerName;
+    private TextField nameInput;
     
-    private static final String FONT_FAMILY = "Arial";
     private static final double LOGO_WIDTH = 500;
     private static final int SPACING = 30;
     
@@ -31,10 +31,10 @@ public class LoginPane extends GridPane {
         // Start background music
 //        PlaySound.backgroundMusic.play();
         
-        setupLayout();
+    	setupLayout();
         
         ImageView logoView = createLogo();
-        TextField nameInput = createNameField();
+        nameInput = createNameField();
         Button playButton = createPlayButton();
         
         setupButtonVisibility(nameInput, playButton);
@@ -207,7 +207,7 @@ public class LoginPane extends GridPane {
     private void startGame(String name) {
         try {
             setPlayerName(name);
-            //Main.getInstance().changeScene(MapPane.getInstance());
+            Main.getInstance().changeScene(MapPane.getInstance());
         } catch (Exception e) {
             System.err.println("Error starting game: " + e.getMessage());
         }
@@ -219,6 +219,9 @@ public class LoginPane extends GridPane {
     
     public static void setPlayerName(String name) {
         playerName = name;
+        if (instance != null && instance.nameInput != null) {
+            instance.nameInput.setText(name);
+        }
     }
     
     public static LoginPane getInstance() {
@@ -226,5 +229,15 @@ public class LoginPane extends GridPane {
             instance = new LoginPane();
         }
         return instance;
+    }
+    
+    public static void resetInstance() {
+        if (instance != null) {
+            instance.nameInput.setText("");
+            instance.nameInput.setPromptText("ENTER HERO NAME");
+        }
+        
+        instance = null;
+        playerName = null;
     }
 }
