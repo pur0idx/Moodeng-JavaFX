@@ -1,5 +1,6 @@
 package gui;
 
+import components.SoundButton;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
@@ -19,11 +20,9 @@ public class LoginPane extends AnchorPane {
     private static String playerName;
     private TextField nameInput;
     private boolean isMusicPlaying = true;
-    private Button musicButton;
     
     private static final double LOGO_WIDTH = 500;
     private static final int SPACING = 30;
-    private static final int SOUND_BUTTON_SIZE = 60;
     
     private LoginPane() {
         initializeLoginScreen();
@@ -31,36 +30,46 @@ public class LoginPane extends AnchorPane {
     
     private void initializeLoginScreen() {
         setBackground(createBackground());
-        
+
         GridPane contentGrid = new GridPane();
         contentGrid.setAlignment(Pos.CENTER);
         contentGrid.setVgap(SPACING);
-        
+
         ImageView logoView = createLogo();
         nameInput = createNameField();
         Button playButton = createPlayButton();
-        Button musicButton = createMusicButton();
-        
+        Button musicButton = SoundButton.createMusicButton(isMusicPlaying, this::onMusicToggle);
+
         contentGrid.add(logoView, 0, 0);
         contentGrid.add(nameInput, 0, 1);
         contentGrid.add(playButton, 0, 2);
-        
+
         AnchorPane.setTopAnchor(contentGrid, 40.0);
         AnchorPane.setBottomAnchor(contentGrid, 0.0);
         AnchorPane.setLeftAnchor(contentGrid, 0.0);
         AnchorPane.setRightAnchor(contentGrid, 0.0);
-        
+
         AnchorPane.setTopAnchor(musicButton, 20.0);
         AnchorPane.setRightAnchor(musicButton, 20.0);
-        
+
         getChildren().addAll(contentGrid, musicButton);
-        
+
         if (isMusicPlaying) {
-//            PlaySound.backgroundMusic.play();
+            // PlaySound.backgroundMusic.play();
         }
     }
     
-    private ImageView createLogo() {
+    private void onMusicToggle(boolean newMusicState) {
+        isMusicPlaying = newMusicState;
+
+        if (isMusicPlaying) {
+            // PlaySound.backgroundMusic.play();
+        } else {
+            // PlaySound.backgroundMusic.stop();
+        }
+    }
+
+	private ImageView createLogo() {
         try {
             Image logo = new Image(ClassLoader.getSystemResource("logo.png").toString());
             ImageView logoView = new ImageView(logo);
@@ -133,40 +142,6 @@ public class LoginPane extends AnchorPane {
         return button;
     }
     
-    private Button createMusicButton() {
-        musicButton = new Button();
-        musicButton.setPrefSize(70, 70);
-        
-        try {
-            ImageView imageView = new ImageView(new Image(
-                ClassLoader.getSystemResource(isMusicPlaying ? "sound_on.png" : "sound_off.png").toString()
-            ));
-            imageView.setPreserveRatio(true);
-            imageView.setSmooth(false);
-            imageView.setCache(false);
-            imageView.setCacheHint(CacheHint.SPEED);
-            imageView.setFitWidth(SOUND_BUTTON_SIZE);
-            imageView.setFitHeight(SOUND_BUTTON_SIZE);
-            musicButton.setGraphic(imageView);
-        } catch (Exception e) {
-            System.err.println("Failed to load music icon: " + e.getMessage());
-        }
-        
-        musicButton.setStyle("-fx-background-color: transparent;");
-        
-        musicButton.setOnMouseEntered(e -> 
-            musicButton.setStyle("-fx-background-color: rgba(255, 255, 255, 0.1);")
-        );
-        
-        musicButton.setOnMouseExited(e -> 
-            musicButton.setStyle("-fx-background-color: transparent;")
-        );
-        
-        musicButton.setOnAction(e -> toggleMusic());
-        
-        return musicButton;
-    }
-    
     private Background createBackground() {
         Image bgImage = new Image(ClassLoader.getSystemResource("login_image.gif").toString());
         BackgroundSize bgSize = new BackgroundSize(1280, 720, false, false, true, true);
@@ -192,27 +167,6 @@ public class LoginPane extends AnchorPane {
             Main.getInstance().changeScene(MapPane.getInstance());
         } catch (Exception e) {
             System.err.println("Error starting game: " + e.getMessage());
-        }
-    }
-    
-    private void toggleMusic() {
-        isMusicPlaying = !isMusicPlaying;
-        
-        try {
-            ImageView imageView = new ImageView(new Image(
-                ClassLoader.getSystemResource(isMusicPlaying ? "sound_on.png" : "sound_off.png").toString()
-            ));
-            imageView.setFitWidth(SOUND_BUTTON_SIZE);
-            imageView.setFitHeight(SOUND_BUTTON_SIZE);
-            musicButton.setGraphic(imageView);
-        } catch (Exception e) {
-            System.err.println("Failed to load music icon: " + e.getMessage());
-        }
-        
-        if (isMusicPlaying) {
-//            PlaySound.backgroundMusic.play();
-        } else {
-//            PlaySound.backgroundMusic.stop();
         }
     }
     
@@ -310,4 +264,12 @@ public class LoginPane extends AnchorPane {
         instance = null;
         playerName = null;
     }
+
+	public boolean isMusicPlaying() {
+		return isMusicPlaying;
+	}
+
+	public void setMusicPlaying(boolean isMusicPlaying) {
+		this.isMusicPlaying = isMusicPlaying;
+	}
 }

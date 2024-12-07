@@ -111,11 +111,11 @@ public class AboutPane extends BorderPane {
     
     private void addSection(VBox parent, String title, String content) {
         Text titleText = new Text(title);
-        titleText.setFont(Font.font("Monospace", FontWeight.BOLD, 22));  // Reduced from 24 to 22
+        titleText.setFont(Font.font("Monospace", FontWeight.BOLD, 22));
         titleText.setFill(Color.WHITE);
         
         Text contentText = new Text(content);
-        contentText.setFont(Font.font("Monospace", FontWeight.NORMAL, 14));  // Reduced from 16 to 14
+        contentText.setFont(Font.font("Monospace", FontWeight.NORMAL, 14));
         contentText.setFill(Color.LIGHTGRAY);
         contentText.setTextAlignment(TextAlignment.LEFT);
         
