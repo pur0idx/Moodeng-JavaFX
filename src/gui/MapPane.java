@@ -70,8 +70,18 @@ public class MapPane extends BorderPane {
         backButton.setPrefWidth(200);
         setupButtonStyle(backButton);
         
+        backButton.setOnAction(e -> {
+            try {
+                LoginPane.resetInstance();
+                MapPane.resetInstance();
+                Main.getInstance().changeScene(LoginPane.getInstance());
+            } catch (Exception ex) {
+                System.err.println("Error returning to login: " + ex.getMessage());
+            }
+        });
+        
         // Welcome text and other content
-        Text welcomeText = new Text(" WELCOME, MOO" + LoginPane.getPlayerName().toUpperCase() + "!");
+        Text welcomeText = new Text(" WELCOME, " + LoginPane.getPlayerName().toUpperCase() + "!");
         welcomeText.setFont(Font.font("Monospace", FontWeight.BOLD, 32));
         welcomeText.setFill(Color.WHITE);
         welcomeText.setEffect(new DropShadow(10, Color.GOLD));
