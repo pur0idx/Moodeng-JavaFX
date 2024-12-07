@@ -1,5 +1,9 @@
 package main;
 
+import java.awt.Taskbar;
+import java.awt.Taskbar.Feature;
+import java.awt.Toolkit;
+
 import gui.*;
 import javafx.application.Application;
 import javafx.scene.Cursor;
@@ -20,6 +24,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         gameWindow = stage;
         instance = this;
+        var appIcon = new Image("deng.png");
         
         Parent startScreen = LoginPane.getInstance();
         gameScene = new Scene(startScreen, WIDTH, HEIGHT);
@@ -28,6 +33,22 @@ public class Main extends Application {
         
         gameWindow.setScene(gameScene);
         gameWindow.setTitle("Rise of Moodeng");
+        gameWindow.getIcons().add(appIcon);
+        
+        if (Taskbar.isTaskbarSupported()) {
+            var taskbar = Taskbar.getTaskbar();
+
+            if (taskbar.isSupported(Feature.ICON_IMAGE)) {
+                try {
+                    final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+                    var dockIcon = defaultToolkit.getImage(ClassLoader.getSystemResource("deng.png"));
+                    taskbar.setIconImage(dockIcon);
+                } catch (Exception e) {
+                    System.err.println("Failed to set dock icon: " + e.getMessage());
+                }
+            }
+        }
+        
         gameWindow.setResizable(false);
         gameWindow.show();
     }
