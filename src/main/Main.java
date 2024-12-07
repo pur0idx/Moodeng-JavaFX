@@ -27,7 +27,7 @@ public class Main extends Application {
 //        setGameCursor();
         
         gameWindow.setScene(gameScene);
-        gameWindow.setTitle("moodeng");
+        gameWindow.setTitle("Rise of Moodeng");
         gameWindow.setResizable(false);
         gameWindow.show();
     }

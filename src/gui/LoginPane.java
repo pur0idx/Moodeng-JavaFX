@@ -93,7 +93,7 @@ public class LoginPane extends AnchorPane {
     
     private TextField createNameField() {
         TextField field = new TextField();
-        field.setPromptText("ENTER HERO NAME");
+        field.setPromptText("ENTER YOUR NAME");
         field.setFont(Font.font("Monospace", FontWeight.BOLD, 20));
         field.setStyle(getDefaultFieldStyle());
         field.setPrefWidth(300);
