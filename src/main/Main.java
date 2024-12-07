@@ -17,8 +17,10 @@ public class Main extends Application {
     private static Main instance;
     private Stage gameWindow;
     private Scene gameScene;
-    private final int WIDTH = 1280;
-    private final int HEIGHT = 720;
+    private final int INITIAL_WIDTH = 1280;
+    private final int INITIAL_HEIGHT = 720;
+    private final double ASPECT_RATIO = 16.0 / 9.0;
+    private boolean isResizing = false;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -27,7 +29,18 @@ public class Main extends Application {
         var appIcon = new Image("deng.png");
         
         Parent startScreen = LoginPane.getInstance();
-        gameScene = new Scene(startScreen, WIDTH, HEIGHT);
+        gameScene = new Scene(startScreen, INITIAL_WIDTH, INITIAL_HEIGHT);
+        
+        gameWindow.setMinWidth(1280);
+        gameWindow.setMinHeight(720);
+        
+        gameWindow.widthProperty().addListener((obs, oldVal, newVal) -> {
+            if (!isResizing) {
+                isResizing = true;
+                gameWindow.setHeight(newVal.doubleValue() / ASPECT_RATIO);
+                isResizing = false;
+            }
+        });
         
 //        setGameCursor();
         
@@ -49,7 +62,7 @@ public class Main extends Application {
             }
         }
         
-        gameWindow.setResizable(false);
+        gameWindow.setResizable(true);
         gameWindow.show();
     }
 
