@@ -92,10 +92,18 @@ public class MapPane extends BorderPane {
         subTitle.setFont(Font.font("Monospace", FontWeight.MEDIUM, 24));
         subTitle.setFill(Color.LIGHTGRAY);
         
-        Button aboutButton = new Button("ABOUT GAME");
+        Button aboutButton = new Button("HOW TO PLAY");
         aboutButton.setFont(Font.font("Monospace", FontWeight.BOLD, 18));
         aboutButton.setPrefWidth(200);
         setupButtonStyle(aboutButton);
+        
+        aboutButton.setOnAction(e -> {
+            try {
+                Main.getInstance().changeScene(AboutPane.getInstance());
+            } catch (Exception ex) {
+                System.err.println("Error returning to login: " + ex.getMessage());
+            }
+        });
         
         // Add all elements to the content box
         contentBox.getChildren().addAll(
@@ -153,21 +161,26 @@ public class MapPane extends BorderPane {
         card.setPrefSize(280, 300);
         
         try {
-            Image mapImage = new Image(ClassLoader.getSystemResource(MAP_FILES[index]).toString());
-            ImageView imageView = new ImageView(mapImage);
-            
-            imageView.setFitWidth(200);
-            imageView.setFitHeight(120);
-            
-            imageView.setPreserveRatio(false);
-            imageView.setStyle("-fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);");
-            
-            StackPane imageContainer = new StackPane(imageView);
-            imageContainer.setMinSize(200, 120);
-            imageContainer.setMaxSize(200, 120);
-            imageContainer.setStyle("-fx-background-color: black;");
-            
-            card.getChildren().add(imageContainer);
+        	Image mapImage = new Image(ClassLoader.getSystemResource(MAP_FILES[index]).toString());
+        	ImageView imageView = new ImageView(mapImage);
+
+        	imageView.setFitWidth(200);
+        	imageView.setFitHeight(120);
+        	imageView.setPreserveRatio(true);
+        	imageView.setStyle("-fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);");
+
+        	double width = Math.min(mapImage.getWidth(), mapImage.getHeight() * (200.0/120.0));
+        	double height = Math.min(mapImage.getHeight(), mapImage.getWidth() * (120.0/200.0));
+        	double x = (mapImage.getWidth() - width) / 2;
+        	double y = (mapImage.getHeight() - height) / 2;
+        	imageView.setViewport(new javafx.geometry.Rectangle2D(x, y, width, height));
+
+        	StackPane imageContainer = new StackPane(imageView);
+        	imageContainer.setMinSize(200, 120);
+        	imageContainer.setMaxSize(200, 120);
+        	imageContainer.setStyle("-fx-background-color: black;");
+
+        	card.getChildren().add(imageContainer);
         } catch (Exception e) {
             System.err.println("Failed to load map image: " + e.getMessage());
         }
