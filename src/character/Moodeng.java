@@ -14,27 +14,27 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     private static Moodeng instance;
     private int score;
     private double delayShoot;
-    private ImageView MoodengImageView; 
-    private Animation MoodengAnimation;
-    private Image moveLeft;
-    private Image moveRight;
-    private boolean facingRight = true;
+    private ImageView moodengImageView;
+    private Animation walkRightAnimation;
+    private Animation walkLeftAnimation;
+    private boolean facingRight;
+    private Image rightIdleSprite;
+    private Image leftIdleSprite;
     
-	public Moodeng() {
-    	this.setPosX(0);
-    	this.setPosY(0); 
-    	this.setAtk(1);
-    	this.setSpeed(15.0);
-    	this.setHp(5);
-    	this.setScore(0);
-    	this.setDelayShoot(1);
-    	
-    	this.moveLeft = new Image(ClassLoader.getSystemResource("moodeng_moveLeft.png").toString());
-        this.moveRight = new Image(ClassLoader.getSystemResource("moodeng_moveRight.png").toString());
-    	
-        MoodengImageView = new ImageView(moveRight);
-        MoodengImageView.setFitWidth(12);
-        MoodengImageView.setFitHeight(72);
+    private static final int SPRITE_WIDTH = 128;
+    private static final int SPRITE_HEIGHT = 128;
+    private static final int SPRITESHEET_WIDTH = 512;
+    private static final int FRAMES_PER_ROW = 4;
+    
+    public Moodeng() {
+        this.setPosX(0);
+        this.setPosY(0); 
+        this.setAtk(1);
+        this.setSpeed(2);
+        this.setHp(5);
+        this.setScore(0);
+        this.setDelayShoot(1);
+        this.facingRight = true;
         
         initMoodengImageView();
         initAnimations();
@@ -97,7 +97,7 @@ public class Moodeng extends Entity implements Movable, Jumpable {
             }
         }
     }
-      
+    
     @Override
     public void moveRight() {
         if (getPosX() + 30 < 1280 - SPRITE_WIDTH) {
