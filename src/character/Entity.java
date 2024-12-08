@@ -7,7 +7,7 @@ public abstract class Entity {
     private int atk;
     private double speed;
 	private boolean isDead;
-    
+	
     public double getXPos() {
         return posX;
     }
