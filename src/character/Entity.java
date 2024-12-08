@@ -59,6 +59,6 @@ public abstract class Entity {
     public void setDead(boolean isDead) { 
     	this.isDead = isDead; 
     }
-
-	public abstract int getScore();
+    
+    public abstract int getScore(); //delete later
 }

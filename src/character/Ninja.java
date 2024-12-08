@@ -1,6 +1,5 @@
 package character;
 
-import ability.Jumpable;
 import ability.Movable;
 
 public class Ninja extends Entity implements Movable {
