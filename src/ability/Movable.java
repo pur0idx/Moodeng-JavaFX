@@ -1,6 +1,6 @@
 package ability;
 
 public interface Movable {
-	void goLeft();
-    void goRight();
+	void moveLeft();
+    void moveRight();
 }

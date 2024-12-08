@@ -1,6 +1,9 @@
 package character;
 
-public class Moodeng extends Entity{
+import ability.Jumpable;
+import ability.Movable;
+
+public class Moodeng extends Entity implements Movable, Jumpable{
     private static Moodeng instance;
     private int score;
     private double delayShoot;
@@ -17,13 +20,21 @@ public class Moodeng extends Entity{
     	
     }
 	
-	public void goLeft() {
+	@Override
+	public void moveLeft() {
      
     }
 	
-	public void goRight(){
+	@Override
+	public void moveRight(){
 		
     }
+	
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	public void shoot(){
 
@@ -53,6 +64,8 @@ public class Moodeng extends Entity{
     public void setDelayShoot(double delayShoot) {
         this.delayShoot = Math.max(0, delayShoot);
     }
+
+	
     
     
 }
