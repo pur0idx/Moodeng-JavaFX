@@ -1,9 +1,7 @@
 package gui;
 
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -204,20 +202,21 @@ public class MapPane extends BorderPane {
         button.setPrefWidth(200);
         setupButtonStyle(button);
         
-//        button.setOnAction(e -> {
-//            try {
-//                PlaySound.defaultBG.stop();
-//                GameLogic.setCurrentMap(MAP_NAMES[index] + "Map");
-//                switch (index) {
-//                    case 0 -> Main.getInstance().changeScene(new CaveMapPane());
-//                    case 1 -> Main.getInstance().changeScene(new ForestMapPane());
-//                    case 2 -> Main.getInstance().changeScene(new FactoryMapPane());
-//                    case 3 -> Main.getInstance().changeScene(new JungleMapPane());
-//                }
-//            } catch (Exception ex) {
-//                System.err.println("Error changing map: " + ex.getMessage());
-//            }
-//        });
+        button.setOnAction(e -> {
+        try {
+//            PlaySound.playBackgroundMusic().stop();
+            GameLogic.setCurrentMap(MAP_NAMES[index] + "Map");
+            if (index == 1) {
+                Main.getInstance().changeScene(new ForestMapPane());
+            }
+            // case 0 -> Main.getInstance().changeScene(new CaveMapPane());
+            // case 2 -> Main.getInstance().changeScene(new FactoryMapPane());
+            // case 3 -> Main.getInstance().changeScene(new JungleMapPane());
+        } catch (Exception ex) {
+            System.err.println("Error changing map: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    });
         
         return button;
     }

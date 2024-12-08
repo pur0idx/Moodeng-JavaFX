@@ -2,13 +2,15 @@ package character;
 
 import ability.Jumpable;
 import ability.Movable;
-//import gui.SpriteAnimation;
 import javafx.animation.Animation;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class Moodeng extends Entity implements Movable, Jumpable{
+public class Moodeng extends Entity implements Movable, Jumpable {
     private static Moodeng instance;
     private int score;
     private double delayShoot;
@@ -72,19 +74,17 @@ public class Moodeng extends Entity implements Movable, Jumpable{
 	}
 	
 	public void shoot(){
-
+    // TODO Auto-generated method stub
     }
-	
-	public static Moodeng getInstance() {
+    
+    public static Moodeng getInstance() {
         if (instance == null) {
             instance = new Moodeng();
         }
         return instance;
     }
-
     
-	
-	public int getScore() {
+    public int getScore() {
         return score;
     }
 
