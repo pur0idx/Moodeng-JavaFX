@@ -86,7 +86,7 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     
     @Override
     public void moveLeft() {
-        if (getPosX() > 0) {
+        if (getPosX() + 70 > 0) {
             setPosX(getPosX() - getSpeed());
             moodengImageView.setTranslateX(getPosX());
             
@@ -100,7 +100,7 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     
     @Override
     public void moveRight() {
-        if (getPosX() < 1280 - SPRITE_WIDTH) {
+        if (getPosX() + 30 < 1280 - SPRITE_WIDTH) {
             setPosX(getPosX() + getSpeed());
             moodengImageView.setTranslateX(getPosX());
             
@@ -116,8 +116,13 @@ public class Moodeng extends Entity implements Movable, Jumpable {
         if (walkRightAnimation != null) walkRightAnimation.stop();
         if (walkLeftAnimation != null) walkLeftAnimation.stop();
         
-        moodengImageView.setImage(facingRight ? rightIdleSprite : leftIdleSprite);
-        moodengImageView.setViewport(new Rectangle2D(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT));
+        if (facingRight) {
+            moodengImageView.setImage(rightIdleSprite);
+            moodengImageView.setViewport(new Rectangle2D(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT));
+        } else {
+            moodengImageView.setImage(leftIdleSprite);
+            moodengImageView.setViewport(new Rectangle2D(3 * SPRITE_WIDTH, 0, SPRITE_WIDTH, SPRITE_HEIGHT));
+        }
     }
     
     public void idle() {

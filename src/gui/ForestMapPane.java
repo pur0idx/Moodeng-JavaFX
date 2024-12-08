@@ -20,7 +20,7 @@ public class ForestMapPane extends AnchorPane {
     private static final double WINDOW_WIDTH = 1280;
     private static final double WINDOW_HEIGHT = 720;
     private static final double GROUND_Y = WINDOW_HEIGHT - 190;
-    private static final double CHARACTER_Y = GROUND_Y - 128;
+    private static final double CHARACTER_Y = GROUND_Y + 25;
 
     public ForestMapPane() {
         setPrefSize(WINDOW_WIDTH, WINDOW_HEIGHT);
