@@ -59,8 +59,8 @@ public class Moodeng extends Entity implements Movable, Jumpable {
             Image walkRightSheet = new Image(ClassLoader.getSystemResource("moodeng_go_right.png").toString());
             Image walkLeftSheet = new Image(ClassLoader.getSystemResource("moodeng_go_left.png").toString());
             
-            walkRightAnimation = createAnimation(walkRightSheet, FRAMES_PER_ROW, Duration.millis(800));
-            walkLeftAnimation = createAnimation(walkLeftSheet, FRAMES_PER_ROW, Duration.millis(800));
+            walkRightAnimation = createAnimation(walkRightSheet, FRAMES_PER_ROW, Duration.millis(400));
+            walkLeftAnimation = createAnimation(walkLeftSheet, FRAMES_PER_ROW, Duration.millis(400));
         } catch (Exception e) {
             System.err.println("Error initializing animations: " + e.getMessage());
         }

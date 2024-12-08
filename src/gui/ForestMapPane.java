@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.geometry.Side;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -31,7 +32,9 @@ public class ForestMapPane extends AnchorPane {
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
-                new BackgroundSize(100, 100, true, true, true, false)
+                new BackgroundSize(BackgroundSize.AUTO, 
+                                 BackgroundSize.AUTO,
+                                 false, false, false, false)
             );
             setBackground(new Background(backgroundImage));
         } catch (Exception e) {
@@ -43,7 +46,7 @@ public class ForestMapPane extends AnchorPane {
             ImageView groundImageView = new ImageView(groundImage);
             groundImageView.setFitWidth(WINDOW_WIDTH);
             groundImageView.setPreserveRatio(true);
-            setTopAnchor(groundImageView, GROUND_Y);
+            setBottomAnchor(groundImageView, 0.0);
             setLeftAnchor(groundImageView, 0.0);
             getChildren().add(groundImageView);
         } catch (Exception e) {
