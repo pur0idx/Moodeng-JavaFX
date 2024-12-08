@@ -32,49 +32,114 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     	this.moveLeft = new Image(ClassLoader.getSystemResource("moodeng_moveLeft.png").toString());
         this.moveRight = new Image(ClassLoader.getSystemResource("moodeng_moveRight.png").toString());
     	
-        MoodengImageView = new ImageView(moveRight);  // Default start facing right
+        MoodengImageView = new ImageView(moveRight);
         MoodengImageView.setFitWidth(12);
         MoodengImageView.setFitHeight(72);
         
-        //MoodengAnimation = new SpriteAnimation(MoodengImageView, Duration.millis(1000),4,4,0,0,128,128);
+        initMoodengImageView();
+        initAnimations();
     }
-	
-	public void setPunkAnimation(Image Image, int count, int column, int width, int height){
-        MoodengImageView.setImage(Image);
-//        SpriteAnimation.getInstance().setCount(count);
-//        SpriteAnimation.getInstance().setColumns(column);
-//        SpriteAnimation.getInstance().setWidth(width);
-//        SpriteAnimation.getInstance().setHeight(height);
-//        punkAnimation.setCycleCount(Animation.INDEFINITE);
-        MoodengImageView.setFitWidth(100);
-        MoodengImageView.setFitHeight(100);
-//        punkAnimation.play();
-    }
-	
-	@Override
-	public void moveLeft() {
-		if (MoodengImageView.getLayoutX() >= 5.0) {
-            MoodengImageView.setLayoutX(MoodengImageView.getLayoutX() - getSpeed());
+    
+    private void initMoodengImageView() {
+        try {
+            rightIdleSprite = new Image(ClassLoader.getSystemResource("moodeng_go_right.png").toString());
+            leftIdleSprite = new Image(ClassLoader.getSystemResource("moodeng_go_left.png").toString());
+            moodengImageView = new ImageView(rightIdleSprite);
+            moodengImageView.setFitWidth(SPRITE_WIDTH);
+            moodengImageView.setFitHeight(SPRITE_HEIGHT);
+            moodengImageView.setPreserveRatio(true);
+            moodengImageView.setViewport(new Rectangle2D(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT));
+        } catch (Exception e) {
+            System.err.println("Error loading Moodeng sprites: " + e.getMessage());
         }
-        setPunkAnimation(moveLeft,4,4,128,128);
     }
-	
-	@Override
-	public void moveRight(){
-		if (MoodengImageView.getLayoutX() <= 1080) {
-            MoodengImageView.setLayoutX(MoodengImageView.getLayoutX() + getSpeed());
+    
+    private void initAnimations() {
+        try {
+            Image walkRightSheet = new Image(ClassLoader.getSystemResource("moodeng_go_right.png").toString());
+            Image walkLeftSheet = new Image(ClassLoader.getSystemResource("moodeng_go_left.png").toString());
+            
+            walkRightAnimation = createAnimation(walkRightSheet, FRAMES_PER_ROW, Duration.millis(400));
+            walkLeftAnimation = createAnimation(walkLeftSheet, FRAMES_PER_ROW, Duration.millis(400));
+        } catch (Exception e) {
+            System.err.println("Error initializing animations: " + e.getMessage());
         }
-        setPunkAnimation(moveRight,6,6,48,48);
     }
-	
-	@Override
-	public void jump() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void shoot(){
-    // TODO Auto-generated method stub
+    
+    private Animation createAnimation(Image spriteSheet, int frameCount, Duration duration) {
+        Timeline timeline = new Timeline();
+        Duration frameTime = duration.divide(frameCount);
+        
+        for (int i = 0; i < frameCount; i++) {
+            final int frameIndex = i;
+            KeyFrame keyFrame = new KeyFrame(frameTime.multiply(i), event -> {
+                moodengImageView.setImage(spriteSheet);
+                int x = (frameIndex % FRAMES_PER_ROW) * SPRITE_WIDTH;
+                moodengImageView.setViewport(new Rectangle2D(x, 0, SPRITE_WIDTH, SPRITE_HEIGHT));
+            });
+            timeline.getKeyFrames().add(keyFrame);
+        }
+        
+        timeline.setCycleCount(Animation.INDEFINITE);
+        return timeline;
+    }
+    
+    @Override
+    public void moveLeft() {
+        if (getPosX() + 70 > 0) {
+            setPosX(getPosX() - getSpeed());
+            moodengImageView.setTranslateX(getPosX());
+            
+            if (facingRight) {
+                facingRight = false;
+                stopAllAnimations();
+                walkLeftAnimation.play();
+            }
+        }
+    }
+      
+    @Override
+    public void moveRight() {
+        if (getPosX() + 30 < 1280 - SPRITE_WIDTH) {
+            setPosX(getPosX() + getSpeed());
+            moodengImageView.setTranslateX(getPosX());
+            
+            if (!facingRight) {
+                facingRight = true;
+                stopAllAnimations();
+                walkRightAnimation.play();
+            }
+        }
+    }
+    
+    private void stopAllAnimations() {
+        if (walkRightAnimation != null) walkRightAnimation.stop();
+        if (walkLeftAnimation != null) walkLeftAnimation.stop();
+        
+        if (facingRight) {
+            moodengImageView.setImage(rightIdleSprite);
+            moodengImageView.setViewport(new Rectangle2D(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT));
+        } else {
+            moodengImageView.setImage(leftIdleSprite);
+            moodengImageView.setViewport(new Rectangle2D(3 * SPRITE_WIDTH, 0, SPRITE_WIDTH, SPRITE_HEIGHT));
+        }
+    }
+    
+    public void idle() {
+        stopAllAnimations();
+    }
+    
+    @Override
+    public void jump() {
+        // implement later
+    }
+    
+    public void shoot() {
+        // implement later
+    }
+    
+    public ImageView getMoodengImageView() {
+        return moodengImageView;
     }
     
     public static Moodeng getInstance() {
