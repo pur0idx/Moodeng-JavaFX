@@ -164,7 +164,7 @@ public class LoginPane extends AnchorPane {
             }
             
             setPlayerName(name);
-            Main.getInstance().changeScene(MapPane.getInstance());
+            Main.getInstance().changeScene(MapSelectorPane.getInstance());
         } catch (Exception e) {
             System.err.println("Error starting game: " + e.getMessage());
         }

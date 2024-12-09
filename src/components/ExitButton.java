@@ -9,7 +9,8 @@ import logic.GameLogic;
 import main.Main;
 import sound.PlaySound;
 import character.Entity;
-import gui.MapPane;
+import character.Moodeng;
+import gui.MapSelectorPane;
 
 public class ExitButton extends ImageView {
     
@@ -22,7 +23,7 @@ public class ExitButton extends ImageView {
         AnchorPane.setRightAnchor(this, 20.0);
     }
     
-    public void setupExitHandler(AnchorPane parentPane, String mapName, Entity character) {
+    public void setupExitHandler(AnchorPane parentPane, String mapName, Moodeng character) {
         setOnMouseClicked(event -> {
 //            PlaySound.stopMusic();
 //            PlaySound.playSound("exit");
@@ -48,7 +49,7 @@ public class ExitButton extends ImageView {
                 character.setDead(true);
                 GameLogic.setIsGameOver(true);
                 GameLogic.stopGame();  // Stop game loop
-                Main.getInstance().changeScene(new MapPane());
+                Main.getInstance().changeScene(new MapSelectorPane());
             } catch (Exception e) {
                 e.printStackTrace();
             }

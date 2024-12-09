@@ -65,7 +65,7 @@ public class AboutPane extends BorderPane {
         
         backButton.setOnAction(e -> {
             try {
-                Main.getInstance().changeScene(MapPane.getInstance());
+                Main.getInstance().changeScene(MapSelectorPane.getInstance());
             } catch (Exception ex) {
                 System.err.println("Error returning to map: " + ex.getMessage());
             }
