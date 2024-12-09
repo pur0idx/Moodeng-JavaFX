@@ -45,6 +45,13 @@ public abstract class BaseEnemy extends Entity {
         return enemyImageView;
     }
     
+    public void updatePosition() {
+        if (enemyImageView != null) {
+            enemyImageView.setTranslateX(getPosX());
+            enemyImageView.setTranslateY(getPosY());
+        }
+    }
+    
     public abstract void attack();
     public abstract void move();
 }

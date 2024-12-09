@@ -1,5 +1,7 @@
 package gui;
 
+import character.FlyingDemon;
+
 public class BeastMapPane extends MapPane {
     private static BeastMapPane instance;
     
@@ -10,6 +12,16 @@ public class BeastMapPane extends MapPane {
     @Override
     protected void customMapSetup() {
     	// custom setup
+    	setupEnemies();
+    	
+    	FlyingDemon demon = new FlyingDemon();
+        addEnemy(demon, 300, 200);
+        
+        // EvilWizard wizard = new EvilWizard();
+        // addEnemy(wizard, 500, GROUND_Y);
+        
+        // Werewolf wolf = new Werewolf();
+        // addEnemy(wolf, 700, GROUND_Y);
     }
     
     @Override
