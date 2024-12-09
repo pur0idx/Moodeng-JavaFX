@@ -60,5 +60,5 @@ public abstract class Entity {
     	this.isDead = isDead; 
     }
     
-    public abstract int getScore(); //delete later
+//    public abstract int getScore(); //delete later
 }
