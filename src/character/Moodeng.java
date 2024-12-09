@@ -3,7 +3,9 @@ package character;
 import interfaces.Jumpable;
 import interfaces.Movable;
 import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.animation.KeyFrame;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
@@ -20,6 +22,10 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     private boolean facingRight;
     private Image rightIdleSprite;
     private Image leftIdleSprite;
+    private boolean isJumping = false;
+    private double velocityY = 0;
+    private final double GRAVITY = 0.5;
+    private final double INITIAL_JUMP_VELOCITY = -10;
     
     private static final int SPRITE_WIDTH = 128;
     private static final int SPRITE_HEIGHT = 128;
@@ -131,7 +137,31 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     
     @Override
     public void jump() {
-        // implement later
+        if (isJumping) return;
+
+        isJumping = true;
+        stopAllAnimations();
+
+        double initialY = getPosY();
+        velocityY = INITIAL_JUMP_VELOCITY;
+
+        AnimationTimer jumpTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                velocityY += GRAVITY;
+                setPosY(getPosY() + velocityY);
+                moodengImageView.setTranslateY(getPosY());
+
+                if (getPosY() >= initialY) {
+                    setPosY(initialY);
+                    moodengImageView.setTranslateY(initialY);
+                    isJumping = false;
+                    idle();
+                    stop();
+                }
+            }
+        };
+        jumpTimer.start();
     }
     
     public void shoot() {

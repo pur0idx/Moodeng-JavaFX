@@ -47,6 +47,9 @@ public class GameLogic {
     public static void getPlayerInput(AnchorPane gamePane) {
         gamePane.setOnKeyPressed(event -> {
             activeKeys.add(event.getCode());
+            if (event.getCode() == KeyCode.SPACE) {
+                Moodeng.getInstance().jump();
+            }
         });
 
         gamePane.setOnKeyReleased(event -> {
