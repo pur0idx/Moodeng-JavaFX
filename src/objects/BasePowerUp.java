@@ -27,9 +27,13 @@ public abstract class BasePowerUp extends ImageView implements Collectible, Temp
     
     protected void setupImage() {
         try {
-            setImage(new Image(ClassLoader.getSystemResource(imageFile).toString()));
-            setFitWidth(32);
-            setFitHeight(32);
+        	Image image = new Image(ClassLoader.getSystemResource(imageFile).toString(), 
+                    32,
+                    0,
+                    true,
+                    false
+                    );
+			setImage(image);
         } catch (Exception e) {
             System.err.println("Error loading image of " + this.imageFile + ": " + e.getMessage());
         }
