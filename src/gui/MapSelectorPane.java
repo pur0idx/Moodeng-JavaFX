@@ -206,15 +206,12 @@ public class MapSelectorPane extends BorderPane {
         try {
 //            PlaySound.playBackgroundMusic().stop();
             GameLogic.setCurrentMap(MAP_NAMES[index] + "Map");
-            if (index == 1) {
-                Main.getInstance().changeScene(new ForestMapPane());
+            switch(index) {
+            	case 0 -> Main.getInstance().changeScene(new BeastMapPane());
+            	case 1 -> Main.getInstance().changeScene(new ForestMapPane());
+            	case 2 -> Main.getInstance().changeScene(new JungleMapPane());
+            	case 3 -> Main.getInstance().changeScene(new ApocalypseMapPane());
             }
-            if (index == 2) {
-                Main.getInstance().changeScene(new JungleMapPane());
-            }
-            // case 0 -> Main.getInstance().changeScene(new CaveMapPane());
-            // case 2 -> Main.getInstance().changeScene(new FactoryMapPane());
-            // case 3 -> Main.getInstance().changeScene(new JungleMapPane());
         } catch (Exception ex) {
             System.err.println("Error changing map: " + ex.getMessage());
             ex.printStackTrace();
