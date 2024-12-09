@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
+import javafx.animation.RotateTransition;
 import javafx.util.Duration;
 import interfaces.*;
 import character.Moodeng;
@@ -13,6 +14,7 @@ public abstract class BasePowerUp extends ImageView implements Collectible, Temp
     protected String name;
     protected double duration;
     protected Timeline effectTimer;
+    protected RotateTransition spinTransition;
     protected boolean isActive;
     protected String imageFile;
     
@@ -23,6 +25,7 @@ public abstract class BasePowerUp extends ImageView implements Collectible, Temp
         this.isActive = false;
         setupImage();
         setupTimer();
+        setupSpin();
     }
     
     protected void setupImage() {
@@ -48,6 +51,13 @@ public abstract class BasePowerUp extends ImageView implements Collectible, Temp
                 })
             );
         }
+    }
+    
+    protected void setupSpin() {
+        spinTransition = new RotateTransition(Duration.seconds(2), this);
+        spinTransition.setByAngle(360);
+        spinTransition.setCycleCount(Timeline.INDEFINITE);
+        spinTransition.play();
     }
     
     @Override
