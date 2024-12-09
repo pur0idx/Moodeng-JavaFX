@@ -69,9 +69,7 @@ public abstract class MapPane extends AnchorPane {
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
-                new BackgroundSize(BackgroundSize.AUTO, 
-                                 BackgroundSize.AUTO,
-                                 false, false, false, false)
+                new BackgroundSize(100, 100, true, true, false, true)
             );
             setBackground(new Background(backgroundImage));
         } catch (Exception e) {

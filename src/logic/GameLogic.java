@@ -51,7 +51,7 @@ public class GameLogic {
 
         gamePane.setOnKeyReleased(event -> {
             activeKeys.remove(event.getCode());
-            if (!activeKeys.contains(KeyCode.LEFT) && !activeKeys.contains(KeyCode.RIGHT)) {
+            if (!(activeKeys.contains(KeyCode.LEFT) || activeKeys.contains(KeyCode.A)) && !(activeKeys.contains(KeyCode.RIGHT) || (activeKeys.contains(KeyCode.D)))) {
                 Moodeng.getInstance().idle();
             }
         });
@@ -72,10 +72,10 @@ public class GameLogic {
                     return;
                 }
 
-                if (activeKeys.contains(KeyCode.LEFT)) {
+                if (activeKeys.contains(KeyCode.LEFT) || activeKeys.contains(KeyCode.A)) {
                     Moodeng.getInstance().moveLeft();
                 }
-                if (activeKeys.contains(KeyCode.RIGHT)) {
+                if (activeKeys.contains(KeyCode.RIGHT) || activeKeys.contains(KeyCode.D)) {
                     Moodeng.getInstance().moveRight();
                 }
                 

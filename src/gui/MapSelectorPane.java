@@ -209,6 +209,9 @@ public class MapSelectorPane extends BorderPane {
             if (index == 1) {
                 Main.getInstance().changeScene(new ForestMapPane());
             }
+            if (index == 2) {
+                Main.getInstance().changeScene(new JungleMapPane());
+            }
             // case 0 -> Main.getInstance().changeScene(new CaveMapPane());
             // case 2 -> Main.getInstance().changeScene(new FactoryMapPane());
             // case 3 -> Main.getInstance().changeScene(new JungleMapPane());
