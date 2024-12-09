@@ -37,11 +37,15 @@ public class FlyingDemon extends BaseEnemy implements Movable, FireBreather, Fly
     
     private static final double SCALE = 2.0;
     
+    private Timeline moveTimer;
+    private Moodeng target;
+    
     public FlyingDemon() {
         super(100, 20, 3.0, SPRITE_WIDTH, SPRITE_HEIGHT, FRAMES);
         this.currentHeight = getPosY();
         setupFloating();
         setupIdleAnimation();
+        setupChaseMovement();
     }
     
     @Override
@@ -241,9 +245,16 @@ public class FlyingDemon extends BaseEnemy implements Movable, FireBreather, Fly
     public void attack() {
         breatheFire();
     }
+    
+    private void setupChaseMovement() {
+        moveTimer = new Timeline(
+            new KeyFrame(Duration.millis(16), e -> move())
+        );
+        moveTimer.setCycleCount(Timeline.INDEFINITE);
+        moveTimer.play();
+    }
 
     @Override
     public void move() {
-        // movement pattern implementation
     }
 }

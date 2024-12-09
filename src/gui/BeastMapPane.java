@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Random;
+
 import character.FlyingDemon;
 
 public class BeastMapPane extends MapPane {
@@ -14,8 +16,17 @@ public class BeastMapPane extends MapPane {
     	// custom setup
     	setupEnemies();
     	
-    	FlyingDemon demon = new FlyingDemon();
-        addEnemy(demon, 300, 200);
+    	Random random = new Random();
+        
+        FlyingDemon demon1 = new FlyingDemon();
+        addEnemy(demon1, 
+                random.nextInt(1000) + 100,
+                random.nextInt(300) + 100);
+        
+        FlyingDemon demon2 = new FlyingDemon();
+        addEnemy(demon2, 
+                random.nextInt(1000) + 100,
+                random.nextInt(300) + 100);
         
         // EvilWizard wizard = new EvilWizard();
         // addEnemy(wizard, 500, GROUND_Y);
