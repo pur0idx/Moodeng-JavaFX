@@ -1,6 +1,6 @@
 package character;
 
-import ability.Movable;
+import interfaces.Movable;
 
 public class Ninja extends Entity implements Movable {
 	private static Ninja instance;

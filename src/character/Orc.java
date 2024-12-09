@@ -1,6 +1,6 @@
 package character;
 
-import ability.Movable;
+import interfaces.Movable;
 
 public class Orc extends Entity implements Movable{
 	

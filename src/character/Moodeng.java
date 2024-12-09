@@ -1,7 +1,7 @@
 package character;
 
-import ability.Jumpable;
-import ability.Movable;
+import interfaces.Jumpable;
+import interfaces.Movable;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
@@ -164,4 +164,9 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     public void setDelayShoot(double delayShoot) {
         this.delayShoot = Math.max(0, delayShoot);
     }
+
+	public void setInvincible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 }

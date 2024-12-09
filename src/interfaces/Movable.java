@@ -1,4 +1,4 @@
-package ability;
+package interfaces;
 
 public interface Movable {
 	void moveLeft();
