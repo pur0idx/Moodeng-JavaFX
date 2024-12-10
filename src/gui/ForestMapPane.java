@@ -1,10 +1,13 @@
 package gui;
 
+import sound.PlaySound;
+
 public class ForestMapPane extends MapPane {
     private static ForestMapPane instance;
     
     public ForestMapPane() {
         super("ForestMap", "forest.gif", "forest_ground.png");
+        PlaySound.playForestMusic();
     }
     
     @Override

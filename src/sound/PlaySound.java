@@ -16,8 +16,8 @@ public class PlaySound {
     public static AudioClip collect;
     public static AudioClip hit;
     
-    private static final double DEFAULT_BGM_VOLUME = 0.2;
-    private static final double DEFAULT_EFFECTS_VOLUME = 0.4;
+    private static final double DEFAULT_BGM_VOLUME = 0.05;
+    private static final double DEFAULT_EFFECTS_VOLUME = 0.2;
 
     private PlaySound() {
         loadSounds();
@@ -26,15 +26,15 @@ public class PlaySound {
     private void loadSounds() {
         try {
         	backgroundMusic = loadAndSetupAudio("background.wav", DEFAULT_BGM_VOLUME, true);
-        	// forestMapBG = loadAndSetupAudioClip("sounds/forest_bg.wav", DEFAULT_BGM_VOLUME, true);
-            // beastMapBG = loadAndSetupAudioClip("sounds/beast_bg.wav", DEFAULT_BGM_VOLUME, true);
-            // jungleMapBG = loadAndSetupAudioClip("sounds/jungle_bg.wav", DEFAULT_BGM_VOLUME, true);
-            // apocalypseMapBG = loadAndSetupAudioClip("sounds/apocalypse_bg.wav", DEFAULT_BGM_VOLUME, true);
+        	forestMapBG = loadAndSetupAudio("forest.wav", DEFAULT_BGM_VOLUME, true);
+            beastMapBG = loadAndSetupAudio("beast.wav", DEFAULT_BGM_VOLUME, true);
+            jungleMapBG = loadAndSetupAudio("jungle.wav", DEFAULT_BGM_VOLUME, true);
+            apocalypseMapBG = loadAndSetupAudio("apocalypse.wav", DEFAULT_BGM_VOLUME, true);
             
-        	exit = loadAndSetupAudio("sounds/exit.wav", DEFAULT_EFFECTS_VOLUME, false);
-            jump = loadAndSetupAudio("sounds/jump.wav", DEFAULT_EFFECTS_VOLUME, false);
-            collect = loadAndSetupAudio("sounds/collect.wav", DEFAULT_EFFECTS_VOLUME, false);
-            hit = loadAndSetupAudio("sounds/hit.wav", DEFAULT_EFFECTS_VOLUME, false);
+        	exit = loadAndSetupAudio("exit.wav", DEFAULT_EFFECTS_VOLUME / 6, false);
+            jump = loadAndSetupAudio("jump.wav", DEFAULT_EFFECTS_VOLUME / 6, false);
+            collect = loadAndSetupAudio("collect.wav", DEFAULT_EFFECTS_VOLUME, false);
+            hit = loadAndSetupAudio("hit.wav", DEFAULT_EFFECTS_VOLUME, false);
 
 //            backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
 //            forestMapBG.setCycleCount(AudioClip.INDEFINITE);

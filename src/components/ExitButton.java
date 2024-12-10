@@ -26,13 +26,13 @@ public class ExitButton extends ImageView {
     public void setupExitHandler(AnchorPane parentPane, String mapName, Moodeng character) {
         setOnMouseClicked(event -> {
 //            PlaySound.stopMusic();
-//            PlaySound.playSound("exit");
+            PlaySound.playSound("exit");
             GameLogic.setHighScoreEachMap(mapName, character.getScore());
             fadeExitTransition(parentPane, character);
         });
         
         setOnMouseReleased(event -> {
-//            PlaySound.playBackgroundMusic();
+            PlaySound.playBackgroundMusic();
         });
         
         ScoreBoard.getInstance().resetScoreboard();

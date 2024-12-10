@@ -12,6 +12,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import sound.PlaySound;
 
 public class Moodeng extends Entity implements Movable, Jumpable {
     private static Moodeng instance;
@@ -144,6 +145,8 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     @Override
     public void jump() {
         if (isJumping) return;
+        
+        PlaySound.playSound("jump");
 
         isJumping = true;
         stopAllAnimations();

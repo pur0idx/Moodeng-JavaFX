@@ -1,10 +1,13 @@
 package gui;
 
+import sound.PlaySound;
+
 public class ApocalypseMapPane extends MapPane{
 	private static ApocalypseMapPane instance;
 	
 	public ApocalypseMapPane() {
         super("ApocalypseMap", "apocalypse.gif", "apocalypse_ground.png");
+        PlaySound.playApocalypseMusic();
     }
     
     @Override
