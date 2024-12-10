@@ -1,6 +1,7 @@
 package objects;
 
 import character.Moodeng;
+import types.FruitType;
 
 public class DefensePowerUp extends BasePowerUp{
 
@@ -22,5 +23,9 @@ public class DefensePowerUp extends BasePowerUp{
     public int getScoreValue() {
         return 100;
     }
+    
+    public FruitType getFruitType() {
+		return FruitType.COCONUT;
+	}
 
 }

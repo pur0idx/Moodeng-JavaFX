@@ -208,7 +208,7 @@ public class Moodeng extends Entity implements Movable, Jumpable {
 	
 	public void addWatermelon() {
 	    watermelons++;
-	    ScoreBoard.getInstance().updateFruitCount("watermelon");
+	    ScoreBoard.getInstance().setScoreboard();
 	}
 
 	public void addCoconut() {

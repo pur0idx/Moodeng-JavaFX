@@ -195,6 +195,9 @@ public abstract class MapPane extends AnchorPane {
             if (powerUp.getBoundsInParent().intersects(
                 moodeng.getMoodengImageView().getBoundsInParent())) {
                 
+            	
+            	scoreBoard.incrementFruitCount(powerUp.getFruitType());
+            	
                 powerUp.onCollect(moodeng);
                 showPowerUpText(powerUp.getEffectName());
                 

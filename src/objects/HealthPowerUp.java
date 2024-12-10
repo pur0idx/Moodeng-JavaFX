@@ -1,6 +1,7 @@
 package objects;
 
 import character.Moodeng;
+import types.FruitType;
 
 public class HealthPowerUp extends BasePowerUp {
     public HealthPowerUp() {
@@ -21,4 +22,8 @@ public class HealthPowerUp extends BasePowerUp {
     public int getScoreValue() {
         return 50;
     }
+    
+    public FruitType getFruitType() {
+		return FruitType.WATERMELON;
+	}
 }

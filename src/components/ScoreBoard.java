@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import types.FruitType;
 
 public class ScoreBoard extends HBox {
     private static ScoreBoard instance;
@@ -41,10 +42,14 @@ public class ScoreBoard extends HBox {
         
         try {
             Image fruitImage = new Image(ClassLoader.getSystemResource(imageName).toString(),
-                    32, 32, true, true);  // Slightly larger icons
+                    32, 32, true, true);
             ImageView fruitIcon = new ImageView(fruitImage);
             fruitIcon.setPreserveRatio(true);
             fruitIcon.setSmooth(false);
+            
+            String fruitType = imageName.replace(".png", "");
+            fruitIcon.setUserData(fruitType);
+            fruitIcon.setId(fruitType);
             
             Label countLabel = new Label("0");
             countLabel.setFont(Font.font("Arial", 24));
@@ -60,20 +65,56 @@ public class ScoreBoard extends HBox {
             return new Label("0");
         }
     }
-
-    public void updateFruitCount(String fruitType) {
+    
+    public static boolean isFruit(ImageView imageView) {
+        String id = imageView.getId();
+        return id != null && (
+            id.equals("watermelon") ||
+            id.equals("coconut") ||
+            id.equals("banana") ||
+            id.equals("pineapple")
+        );
+    }
+    
+    public static String getFruitType(ImageView imageView) {
+        return imageView.getId();
+    }
+    
+    public void updateFruitCount(FruitType fruitType) {
         switch(fruitType) {
-            case "watermelon":
+            case WATERMELON:
                 watermelonCount.setText(String.valueOf(Moodeng.getInstance().getWatermelons()));
                 break;
-            case "coconut":
+            case COCONUT:
                 coconutCount.setText(String.valueOf(Moodeng.getInstance().getCoconuts()));
                 break;
-            case "banana":
+            case BANANA:
                 bananaCount.setText(String.valueOf(Moodeng.getInstance().getBananas()));
                 break;
-            case "pineapple":
+            case PINEAPPLE:
                 pineappleCount.setText(String.valueOf(Moodeng.getInstance().getPineapples()));
+                break;
+        }
+    }
+    
+    public void incrementFruitCount(FruitType fruitType) {
+        Moodeng player = Moodeng.getInstance();
+        switch(fruitType) {
+            case WATERMELON:
+                player.addWatermelon();
+                watermelonCount.setText(String.valueOf(player.getWatermelons()));
+                break;
+            case COCONUT:
+                player.addCoconut();
+                coconutCount.setText(String.valueOf(player.getCoconuts()));
+                break;
+            case BANANA:
+                player.addBanana();
+                bananaCount.setText(String.valueOf(player.getBananas()));
+                break;
+            case PINEAPPLE:
+                player.addPineapple();
+                pineappleCount.setText(String.valueOf(player.getPineapples()));
                 break;
         }
     }
@@ -84,6 +125,13 @@ public class ScoreBoard extends HBox {
         coconutCount.setText(String.valueOf(player.getCoconuts()));
         bananaCount.setText(String.valueOf(player.getBananas()));
         pineappleCount.setText(String.valueOf(player.getPineapples()));
+    }
+    
+    public void resetScoreboard() {
+        watermelonCount.setText("0");
+        coconutCount.setText("0");
+        bananaCount.setText("0");
+        pineappleCount.setText("0");
     }
     
     public static ScoreBoard getInstance() {

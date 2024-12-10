@@ -4,6 +4,7 @@ import character.Moodeng;
 import components.ScoreBoard;
 import gui.ForestMapPane;
 import javafx.animation.AnimationTimer;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -76,11 +77,23 @@ public class GameLogic {
                     return;
                 }
 
+                // Handle player movement
                 if (activeKeys.contains(KeyCode.LEFT) || activeKeys.contains(KeyCode.A)) {
                     Moodeng.getInstance().moveLeft();
                 }
                 if (activeKeys.contains(KeyCode.RIGHT) || activeKeys.contains(KeyCode.D)) {
                     Moodeng.getInstance().moveRight();
+                }
+                
+                // Check fruit collisions
+                for (Node node : gamePane.getChildren()) {
+                    if (node instanceof ImageView && ScoreBoard.isFruit((ImageView)node)) {
+                        ImageView fruitView = (ImageView)node;
+                        if (fruitView.isVisible()) {
+                            String fruitType = ScoreBoard.getFruitType(fruitView);
+                            checkFruitCollision(gamePane, fruitView, fruitType);
+                        }
+                    }
                 }
                 
                 if (!gamePane.isFocused()) {
@@ -115,35 +128,15 @@ public class GameLogic {
     }
     
     public static void checkFruitCollision(AnchorPane gamePane, ImageView fruit, String fruitType) {
-        if (fruit != null && fruit.isVisible()) {
-            Moodeng player = Moodeng.getInstance();
-            if (player.getMoodengImageView().getBoundsInParent().intersects(fruit.getBoundsInParent())) {
-                boolean collected = false;
-                
-                switch(fruitType) {
-                    case "watermelon":
-                        player.addWatermelon();
-                        collected = true;
-                        break;
-                    case "coconut":
-                        player.addCoconut();
-                        collected = true;
-                        break;
-                    case "banana":
-                        player.addBanana();
-                        collected = true;
-                        break;
-                    case "pineapple":
-                        player.addPineapple();
-                        collected = true;
-                        break;
-                }
-                
-                if (collected) {
-                    ScoreBoard.getInstance().updateFruitCount(fruitType);
-                    fruit.setVisible(false);
-                }
-            }
+        if (fruit == null || !fruit.isVisible()) return;
+
+        Moodeng player = Moodeng.getInstance();
+        if (player.getMoodengImageView().getBoundsInParent().intersects(fruit.getBoundsInParent())) {
+            System.out.println("Collected " + fruitType); // Debug print
+            
+            // Use ScoreBoard's increment method directly
+            ScoreBoard.getInstance().incrementFruitCount(fruitType);
+            fruit.setVisible(false);
         }
     }
 }

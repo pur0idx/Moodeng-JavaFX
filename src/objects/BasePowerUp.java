@@ -9,6 +9,7 @@ import javafx.util.Duration;
 import interfaces.*;
 import character.Moodeng;
 import sound.PlaySound;
+import types.FruitType;
 
 public abstract class BasePowerUp extends ImageView implements Collectible, Temporal, PowerUpEffect {
     protected String name;
@@ -104,4 +105,6 @@ public abstract class BasePowerUp extends ImageView implements Collectible, Temp
     public String getEffectName() {
         return name;
     }
+    
+    public abstract FruitType getFruitType();
 }

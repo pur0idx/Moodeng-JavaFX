@@ -1,6 +1,7 @@
 package objects;
 
 import character.Moodeng;
+import types.FruitType;
 
 public class SpeedPowerUp extends BasePowerUp {
     private static final double SPEED_MULTIPLIER = 1.5;
@@ -25,4 +26,8 @@ public class SpeedPowerUp extends BasePowerUp {
     public int getScoreValue() {
         return 75;
     }
+    
+    public FruitType getFruitType() {
+		return FruitType.BANANA;
+	}
 }
