@@ -57,7 +57,7 @@ public class LoginPane extends AnchorPane {
         getChildren().addAll(contentGrid, musicButton);
 
         if (isMusicPlaying) {
-            // PlaySound.backgroundMusic.play();
+             PlaySound.backgroundMusic.play();
         }
     }
     
@@ -65,9 +65,9 @@ public class LoginPane extends AnchorPane {
         isMusicPlaying = newMusicState;
 
         if (isMusicPlaying) {
-            // PlaySound.backgroundMusic.play();
+             PlaySound.backgroundMusic.play();
         } else {
-            // PlaySound.backgroundMusic.stop();
+             PlaySound.backgroundMusic.stop();
         }
     }
 
@@ -265,9 +265,9 @@ public class LoginPane extends AnchorPane {
             instance.nameInput.setPromptText("ENTER HERO NAME");
             instance.nameInput.setStyle(instance.getDefaultFieldStyle());
             
-//            if (!instance.isMusicPlaying) {
-//                PlaySound.backgroundMusic.stop();
-//            }
+            if (!instance.isMusicPlaying) {
+                PlaySound.backgroundMusic.stop();
+            }
         }
         instance = null;
         playerName = null;
