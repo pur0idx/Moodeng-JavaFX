@@ -182,3 +182,9 @@ fabric.properties
 .project
 .settings
 .metadata
+
+# puml
+UML.puml
+UML.png
+UML.svg
+UML.cmapx
