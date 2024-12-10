@@ -42,9 +42,7 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     public Moodeng() {
         this.setPosX(0);
         this.setPosY(0); 
-        this.setAtk(1);
         this.setSpeed(2);
-        this.setHp(5);
         this.setScore(0);
         this.setDelayShoot(1);
         this.facingRight = true;

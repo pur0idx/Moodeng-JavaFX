@@ -14,7 +14,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import objects.BasePowerUp;
+import objects.BaseFruit;
 import types.FruitType;
 
 import java.util.HashMap;
@@ -90,7 +90,7 @@ public class GameLogic {
                 // Check fruit collisions
                 for (Node node : gamePane.getChildren()) {
                     if (node instanceof ImageView && ScoreBoard.isFruit((ImageView)node)) {
-                    	BasePowerUp fruitView = (BasePowerUp)node;
+                    	BaseFruit fruitView = (BaseFruit)node;
                         if (fruitView.isVisible()) {
 //                            String fruitType = ScoreBoard.getFruitType(fruitView);
                             checkFruitCollision(gamePane, fruitView);
@@ -129,7 +129,7 @@ public class GameLogic {
         }
     }
     
-    public static void checkFruitCollision(AnchorPane gamePane, BasePowerUp fruit) {
+    public static void checkFruitCollision(AnchorPane gamePane, BaseFruit fruit) {
         if (fruit == null || !fruit.isVisible()) return;
 
         Moodeng player = Moodeng.getInstance();

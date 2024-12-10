@@ -22,9 +22,8 @@ import java.util.List;
 import character.Moodeng;
 import components.ExitButton;
 import components.ScoreBoard;
-import components.HpBoard;
 import logic.GameLogic;
-import objects.BasePowerUp;
+import objects.BaseFruit;
 import objects.PowerUpFactory;
 import sound.PlaySound;
 
@@ -38,8 +37,7 @@ public abstract class MapPane extends AnchorPane {
     private static final double MAX_SPAWN_X = WINDOW_WIDTH - 50;
     
     protected Timeline itemSpawner;
-    protected List<BasePowerUp> activePowerUps;
-    protected HpBoard hpBoard;
+    protected List<BaseFruit> activePowerUps;
     protected ScoreBoard scoreBoard;
     protected Moodeng moodeng;
     
@@ -104,17 +102,12 @@ public abstract class MapPane extends AnchorPane {
     }
 
     private void setupHUD() {
-        hpBoard = HpBoard.getInstance();
-        HpBoard.updateHpBoard();
-        setTopAnchor(hpBoard, 20.0);
-        setLeftAnchor(hpBoard, 20.0);
-
         scoreBoard = ScoreBoard.getInstance();
         scoreBoard.setScoreboard();
         setTopAnchor(scoreBoard, 20.0);
         setRightAnchor(scoreBoard, 120.0);
 
-        getChildren().addAll(hpBoard, scoreBoard);
+        getChildren().add(scoreBoard);
     }
 
     private void setupExitButton(String mapName) {
@@ -150,7 +143,7 @@ public abstract class MapPane extends AnchorPane {
 
     private void spawnRandomItem() {
 //    	System.out.println("[DEBUG] create item");
-        BasePowerUp powerUp = PowerUpFactory.createRandomPowerUp();
+        BaseFruit powerUp = PowerUpFactory.createRandomPowerUp();
         
         double randomX = MIN_SPAWN_X + Math.random() * (MAX_SPAWN_X - MIN_SPAWN_X);
         powerUp.setTranslateX(randomX);
@@ -176,9 +169,9 @@ public abstract class MapPane extends AnchorPane {
     }
 
     private void checkCollisions() {
-        Iterator<BasePowerUp> iterator = activePowerUps.iterator();
+        Iterator<BaseFruit> iterator = activePowerUps.iterator();
         while (iterator.hasNext()) {
-            BasePowerUp powerUp = iterator.next();
+            BaseFruit powerUp = iterator.next();
             if (powerUp.getBoundsInParent().intersects(
                 moodeng.getMoodengImageView().getBoundsInParent())) {
                 

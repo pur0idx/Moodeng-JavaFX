@@ -3,11 +3,11 @@ package objects;
 import character.Moodeng;
 import types.FruitType;
 
-public class SpeedPowerUp extends BasePowerUp {
+public class Banana extends BaseFruit {
     private static final double SPEED_MULTIPLIER = 1.5;
     private double originalSpeed;
     
-    public SpeedPowerUp() {
+    public Banana() {
         super("Swift Sprint", "banana.png", 5.0);
     }
     

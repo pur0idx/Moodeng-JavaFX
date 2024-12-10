@@ -1,10 +1,8 @@
 package character;
 
-public abstract class Entity {  
-    private int hp;  
+public abstract class Entity {
     private double posX;  
     private double posY;
-    private int atk;
     private double speed;
 	private boolean isDead;
     
@@ -27,22 +25,6 @@ public abstract class Entity {
 	public void setPosY(double posY) {
 		this.posY = posY;
 	}
-	
-	public int getHp() {
-		return hp;
-	}
-
-	public void setHp(int hp) {
-		this.hp = Math.max(0, hp); 
-	}
-	
-	public int getAtk() {
-        return atk;
-    }
-
-    public void setAtk(int atk) {
-        this.atk = atk;
-    }
     
     public double getSpeed() {
         return speed;

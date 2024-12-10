@@ -3,22 +3,18 @@ package objects;
 import character.Moodeng;
 import types.FruitType;
 
-public class AttackPowerUp extends BasePowerUp {
-    private int originalAttack;
+public class Pineapple extends BaseFruit {
     
-    public AttackPowerUp() {
+    public Pineapple() {
         super("Spiky Strike", "pineapple.png", 10.0);
     }
     
     @Override
     public void applyEffect(Moodeng moodeng) {
-        originalAttack = moodeng.getAtk();
-        moodeng.setAtk(originalAttack * 2);
     }
     
     @Override
     public void removeEffect(Moodeng moodeng) {
-        moodeng.setAtk(originalAttack);
     }
     
     @Override

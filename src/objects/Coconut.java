@@ -3,9 +3,9 @@ package objects;
 import character.Moodeng;
 import types.FruitType;
 
-public class DefensePowerUp extends BasePowerUp{
+public class Coconut extends BaseFruit{
 
-	public DefensePowerUp() {
+	public Coconut() {
         super("Tropical Guard", "coconut.png", 3.0);
     }
     

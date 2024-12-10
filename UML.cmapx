@@ -1,0 +1,31 @@
+<map id="UML_map" name="UML_map">
+<area shape="rect" id="id1" href="java:interfaces.Jumpable" title="java:interfaces.Jumpable" alt="" coords="1069,602,1165,666"/>
+<area shape="rect" id="id2" href="java:interfaces.Movable" title="java:interfaces.Movable" alt="" coords="1471,594,1602,675"/>
+<area shape="rect" id="id3" href="java:types.FruitType" title="java:types.FruitType" alt="" coords="3494,2140,3601,2254"/>
+<area shape="rect" id="id4" href="java:interfaces.Temporal" title="java:interfaces.Temporal" alt="" coords="3226,577,3384,691"/>
+<area shape="rect" id="id5" href="java:components.HpBoard" title="java:components.HpBoard" alt="" coords="2037,1345,2217,1476"/>
+<area shape="rect" id="id6" href="java:interfaces.Collectible" title="java:interfaces.Collectible" alt="" coords="3418,585,3677,683"/>
+<area shape="rect" id="id7" href="java:interfaces.PowerUpEffect" title="java:interfaces.PowerUpEffect" alt="" coords="3712,585,3996,683"/>
+<area shape="rect" id="id8" href="java:objects.PowerUpFactory" title="java:objects.PowerUpFactory" alt="" coords="169,585,459,683"/>
+<area shape="rect" id="id9" href="java:gui.BeastMapPane" title="java:gui.BeastMapPane" alt="" coords="2251,1345,2470,1476"/>
+<area shape="rect" id="id10" href="java:gui.ForestMapPane" title="java:gui.ForestMapPane" alt="" coords="2505,1345,2730,1476"/>
+<area shape="rect" id="id11" href="java:gui.JungleMapPane" title="java:gui.JungleMapPane" alt="" coords="2765,1345,2990,1476"/>
+<area shape="rect" id="id12" href="java:objects.DefensePowerUp" title="java:objects.DefensePowerUp" alt="" coords="3067,1932,3365,2046"/>
+<area shape="rect" id="id13" href="java:objects.HealthPowerUp" title="java:objects.HealthPowerUp" alt="" coords="3731,1932,4029,2046"/>
+<area shape="rect" id="id14" href="java:gui.ApocalypseMapPane" title="java:gui.ApocalypseMapPane" alt="" coords="3025,1345,3285,1476"/>
+<area shape="rect" id="id15" href="java:objects.AttackPowerUp" title="java:objects.AttackPowerUp" alt="" coords="4063,1924,4361,2055"/>
+<area shape="rect" id="id16" href="java:objects.SpeedPowerUp" title="java:objects.SpeedPowerUp" alt="" coords="3399,1916,3697,2063"/>
+<area shape="rect" id="id17" href="java:components.ExitButton" title="java:components.ExitButton" alt="" coords="3811,1362,4435,1459"/>
+<area shape="rect" id="id18" href="java:main.Main" title="java:main.Main" alt="" coords="5338,511,5622,757"/>
+<area shape="rect" id="id19" href="java:components.SoundButton" title="java:components.SoundButton" alt="" coords="7,105,621,219"/>
+<area shape="rect" id="id20" href="java:gui.AboutPane" title="java:gui.AboutPane" alt="" coords="4875,544,5303,724"/>
+<area shape="rect" id="id21" href="java:character.Entity" title="java:character.Entity" alt="" coords="1199,454,1436,815"/>
+<area shape="rect" id="id22" href="java:gui.MapSelectorPane" title="java:gui.MapSelectorPane" alt="" coords="4547,486,4840,782"/>
+<area shape="rect" id="id23" href="java:components.ScoreBoard" title="java:components.ScoreBoard" alt="" coords="1654,1271,2002,1550"/>
+<area shape="rect" id="id24" href="java:objects.BasePowerUp" title="java:objects.BasePowerUp" alt="" coords="3320,1246,3776,1575"/>
+<area shape="rect" id="id25" href="java:logic.GameLogic" title="java:logic.GameLogic" alt="" coords="656,7,1153,318"/>
+<area shape="rect" id="id26" href="java:gui.LoginPane" title="java:gui.LoginPane" alt="" coords="4171,404,4513,864"/>
+<area shape="rect" id="id27" href="java:gui.MapPane" title="java:gui.MapPane" alt="" coords="2326,412,2910,856"/>
+<area shape="rect" id="id28" href="java:sound.PlaySound" title="java:sound.PlaySound" alt="" coords="494,379,1034,889"/>
+<area shape="rect" id="id29" href="java:character.Moodeng" title="java:character.Moodeng" alt="" coords="1017,966,1619,1855"/>
+</map>
