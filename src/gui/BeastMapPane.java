@@ -2,7 +2,6 @@ package gui;
 
 import java.util.Random;
 
-import character.FlyingDemon;
 import sound.PlaySound;
 
 public class BeastMapPane extends MapPane {
@@ -16,25 +15,6 @@ public class BeastMapPane extends MapPane {
     @Override
     protected void customMapSetup() {
     	// custom setup
-//    	setupEnemies();
-//    	
-//    	Random random = new Random();
-//        
-//        FlyingDemon demon1 = new FlyingDemon();
-//        addEnemy(demon1, 
-//                random.nextInt(1000) + 100,
-//                random.nextInt(300) + 100);
-//        
-//        FlyingDemon demon2 = new FlyingDemon();
-//        addEnemy(demon2, 
-//                random.nextInt(1000) + 100,
-//                random.nextInt(300) + 100);
-        
-        // EvilWizard wizard = new EvilWizard();
-        // addEnemy(wizard, 500, GROUND_Y);
-        
-        // Werewolf wolf = new Werewolf();
-        // addEnemy(wolf, 700, GROUND_Y);
     }
     
     @Override

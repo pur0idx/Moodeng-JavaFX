@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import character.BaseEnemy;
 import character.Moodeng;
 import components.ExitButton;
 import components.ScoreBoard;
@@ -43,7 +42,6 @@ public abstract class MapPane extends AnchorPane {
     protected HpBoard hpBoard;
     protected ScoreBoard scoreBoard;
     protected Moodeng moodeng;
-    protected List<BaseEnemy> enemies;
     
     public MapPane(String mapName, String backgroundFileName, String groundFileName) {
         setPrefSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -103,18 +101,6 @@ public abstract class MapPane extends AnchorPane {
             setLeftAnchor(moodengView, moodeng.getPosX());
             getChildren().add(moodengView);
         }
-    }
-    
-    protected void setupEnemies() {
-        enemies = new ArrayList<>();
-    }
-    
-    protected void addEnemy(BaseEnemy enemy, double startX, double startY) {
-        enemy.setPosX(startX);
-        enemy.setPosY(startY);
-        enemy.updatePosition();
-        enemies.add(enemy);
-        getChildren().add(enemy.getEnemyImageView());
     }
 
     private void setupHUD() {

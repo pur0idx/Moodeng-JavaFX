@@ -35,15 +35,6 @@ public class PlaySound {
             jump = loadAndSetupAudio("jump.wav", DEFAULT_EFFECTS_VOLUME / 6, false);
             collect = loadAndSetupAudio("collect.wav", DEFAULT_EFFECTS_VOLUME, false);
             hit = loadAndSetupAudio("hit.wav", DEFAULT_EFFECTS_VOLUME, false);
-
-//            backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
-//            forestMapBG.setCycleCount(AudioClip.INDEFINITE);
-//            beastMapBG.setCycleCount(AudioClip.INDEFINITE);
-//            jungleMapBG.setCycleCount(AudioClip.INDEFINITE);
-//            apocalypseMapBG.setCycleCount(AudioClip.INDEFINITE);
-//
-//            setBackgroundVolume(0.5);
-//            setEffectsVolume(0.8);
             
         } catch (Exception e) {
             System.err.println("Error loading sounds: " + e.getMessage());
