@@ -20,11 +20,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import character.Moodeng;
+import components.BuffIndicator;
 import components.ExitButton;
 import components.ScoreBoard;
 import logic.GameLogic;
 import objects.BaseFruit;
-import objects.PowerUpFactory;
+import objects.FruitFactory;
 import sound.PlaySound;
 
 public abstract class MapPane extends AnchorPane {
@@ -40,6 +41,7 @@ public abstract class MapPane extends AnchorPane {
     protected List<BaseFruit> activePowerUps;
     protected ScoreBoard scoreBoard;
     protected Moodeng moodeng;
+    protected BuffIndicator buffIndicator;
     
     public MapPane(String mapName, String backgroundFileName, String groundFileName) {
         setPrefSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -105,9 +107,16 @@ public abstract class MapPane extends AnchorPane {
         scoreBoard = ScoreBoard.getInstance();
         scoreBoard.setScoreboard();
         setTopAnchor(scoreBoard, 20.0);
-        setRightAnchor(scoreBoard, 120.0);
+        setRightAnchor(scoreBoard, 20.0);
 
         getChildren().add(scoreBoard);
+        
+        buffIndicator = BuffIndicator.getInstance();
+        buffIndicator.setSpeedDisplayUsingCurrent();
+        setTopAnchor(buffIndicator, 20.0);
+        setLeftAnchor(buffIndicator, 20.0);
+        
+        getChildren().add(buffIndicator);
     }
 
     private void setupExitButton(String mapName) {
@@ -143,18 +152,18 @@ public abstract class MapPane extends AnchorPane {
 
     private void spawnRandomItem() {
 //    	System.out.println("[DEBUG] create item");
-        BaseFruit powerUp = PowerUpFactory.createRandomPowerUp();
+        BaseFruit fruit = FruitFactory.createRandomPowerUp();
         
         double randomX = MIN_SPAWN_X + Math.random() * (MAX_SPAWN_X - MIN_SPAWN_X);
-        powerUp.setTranslateX(randomX);
-        powerUp.setTranslateY(-50);
+        fruit.setTranslateX(randomX);
+        fruit.setTranslateY(-50);
         
-        TranslateTransition fall = new TranslateTransition(Duration.seconds(4), powerUp);
+        TranslateTransition fall = new TranslateTransition(Duration.seconds(4), fruit);
         fall.setByY(WINDOW_HEIGHT + 100);
-        fall.setOnFinished(e -> getChildren().remove(powerUp));
+        fall.setOnFinished(e -> getChildren().remove(fruit));
         
-        getChildren().add(powerUp);
-        activePowerUps.add(powerUp);
+        getChildren().add(fruit);
+        activePowerUps.add(fruit);
         fall.play();
     }
 

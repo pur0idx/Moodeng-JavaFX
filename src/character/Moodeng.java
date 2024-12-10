@@ -34,10 +34,10 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     private static final int SPRITESHEET_WIDTH = 512;
     private static final int FRAMES_PER_ROW = 4;
     
-    private int watermelons = 0;
-    private int coconuts = 0;
-    private int bananas = 0;
-    private int pineapples = 0;
+    private int watermelonCount = 0;
+    private int coconutCount = 0;
+    private int bananaCount = 0;
+    private int pineappleCount = 0;
     
     public Moodeng() {
         this.setPosX(0);
@@ -208,39 +208,39 @@ public class Moodeng extends Entity implements Movable, Jumpable {
 	}
 	
 	public void addWatermelon() {
-	    watermelons++;
+	    watermelonCount++;
 	    ScoreBoard.getInstance().setScoreboard();
 	}
 
 	public void addCoconut() {
-	    coconuts++;
+	    coconutCount++;
 	    ScoreBoard.getInstance().setScoreboard();
 	}
 
 	public void addBanana() {
-	    bananas++;
+	    bananaCount++;
 	    ScoreBoard.getInstance().setScoreboard();
 	}
 
 	public void addPineapple() {
-	    pineapples++;
+	    pineappleCount++;
 	    ScoreBoard.getInstance().setScoreboard();
 	}
 	
 	public void setWatermelons(int watermelons) {
-		this.watermelons = watermelons;
+		this.watermelonCount = watermelons;
 	}
 	
 	public void setBananas(int bananas) {
-		this.bananas = bananas;
+		this.bananaCount = bananas;
 	}
 	
 	public void setPineapples(int pineapples) {
-		this.pineapples = pineapples;
+		this.pineappleCount = pineapples;
 	}
 	
 	public void setCoconuts(int coconuts) {
-		this.coconuts = coconuts;
+		this.coconutCount = coconuts;
 	}
 	
 	public void resetFruits() {
@@ -250,9 +250,9 @@ public class Moodeng extends Entity implements Movable, Jumpable {
 		setCoconuts(0);
 	}
 
-	public int getWatermelons() { return watermelons; }
-	public int getCoconuts() { return coconuts; }
-	public int getBananas() { return bananas; }
-	public int getPineapples() { return pineapples; }
+	public int getWatermelons() { return watermelonCount; }
+	public int getCoconuts() { return coconutCount; }
+	public int getBananas() { return bananaCount; }
+	public int getPineapples() { return pineappleCount; }
 
 }

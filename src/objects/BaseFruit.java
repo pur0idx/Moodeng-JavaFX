@@ -8,6 +8,7 @@ import javafx.animation.RotateTransition;
 import javafx.util.Duration;
 import interfaces.*;
 import character.Moodeng;
+import components.BuffIndicator;
 import types.FruitType;
 
 public abstract class BaseFruit extends ImageView implements Collectible, Temporal, PowerUpEffect {
@@ -97,4 +98,8 @@ public abstract class BaseFruit extends ImageView implements Collectible, Tempor
 	}
 
 	public abstract FruitType getFruitType();
+	
+	public void updateSpeedIndicator() {
+		BuffIndicator.getInstance().setSpeedDisplayUsingCurrent();
+	}
 }

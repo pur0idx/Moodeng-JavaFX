@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import types.FruitType;
 
 public class ScoreBoard extends HBox {
@@ -52,7 +53,7 @@ public class ScoreBoard extends HBox {
             fruitIcon.setId(fruitType);
             
             Label countLabel = new Label("0");
-            countLabel.setFont(Font.font("Arial", 24));
+            countLabel.setFont(Font.font("Monospace",FontWeight.BOLD, 24));
             countLabel.setTextFill(Color.WHITE);
             countLabel.setMinWidth(40);
             countLabel.setAlignment(Pos.CENTER_LEFT);

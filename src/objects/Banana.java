@@ -1,6 +1,7 @@
 package objects;
 
 import character.Moodeng;
+import components.BuffIndicator;
 import types.FruitType;
 
 public class Banana extends BaseFruit {
@@ -14,12 +15,16 @@ public class Banana extends BaseFruit {
     @Override
     public void applyEffect(Moodeng moodeng) {
         originalSpeed = moodeng.getSpeed();
-        moodeng.setSpeed(originalSpeed * SPEED_MULTIPLIER);
+        System.out.println("DEBUG add buff set speed = "+ moodeng.getSpeed() * SPEED_MULTIPLIER);
+        moodeng.setSpeed(moodeng.getSpeed() * SPEED_MULTIPLIER);
+        updateSpeedIndicator();
     }
     
     @Override
     public void removeEffect(Moodeng moodeng) {
-        moodeng.setSpeed(originalSpeed);
+        System.out.println("DEBUG remove buff set speed = "+ moodeng.getSpeed() / SPEED_MULTIPLIER);
+        moodeng.setSpeed(moodeng.getSpeed() / SPEED_MULTIPLIER);
+        updateSpeedIndicator();
     }
     
     @Override
