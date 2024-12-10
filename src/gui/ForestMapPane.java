@@ -1,5 +1,9 @@
 package gui;
 
+import java.util.Random;
+
+import character.KittyCat;
+
 public class ForestMapPane extends MapPane {
     private static ForestMapPane instance;
     
@@ -10,6 +14,14 @@ public class ForestMapPane extends MapPane {
     @Override
     protected void customMapSetup() {
     	// custom setup
+    	setupEnemies();
+        
+        Random random = new Random();
+        
+        double catX = random.nextInt(1000) + 100;
+        double catY = GROUND_Y + 60;
+        KittyCat kittyCat = new KittyCat();
+        addEnemy(kittyCat, catX, catY);
     }
     
     @Override
