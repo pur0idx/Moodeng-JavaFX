@@ -14,6 +14,8 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import objects.BasePowerUp;
+import types.FruitType;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -88,10 +90,10 @@ public class GameLogic {
                 // Check fruit collisions
                 for (Node node : gamePane.getChildren()) {
                     if (node instanceof ImageView && ScoreBoard.isFruit((ImageView)node)) {
-                        ImageView fruitView = (ImageView)node;
+                    	BasePowerUp fruitView = (BasePowerUp)node;
                         if (fruitView.isVisible()) {
-                            String fruitType = ScoreBoard.getFruitType(fruitView);
-                            checkFruitCollision(gamePane, fruitView, fruitType);
+//                            String fruitType = ScoreBoard.getFruitType(fruitView);
+                            checkFruitCollision(gamePane, fruitView);
                         }
                     }
                 }
@@ -127,15 +129,15 @@ public class GameLogic {
         }
     }
     
-    public static void checkFruitCollision(AnchorPane gamePane, ImageView fruit, String fruitType) {
+    public static void checkFruitCollision(AnchorPane gamePane, BasePowerUp fruit) {
         if (fruit == null || !fruit.isVisible()) return;
 
         Moodeng player = Moodeng.getInstance();
         if (player.getMoodengImageView().getBoundsInParent().intersects(fruit.getBoundsInParent())) {
-            System.out.println("Collected " + fruitType); // Debug print
+            System.out.println("Collected " + fruit.getFruitType()); // Debug print
             
             // Use ScoreBoard's increment method directly
-            ScoreBoard.getInstance().incrementFruitCount(fruitType);
+            ScoreBoard.getInstance().incrementFruitCount(fruit.getFruitType());
             fruit.setVisible(false);
         }
     }

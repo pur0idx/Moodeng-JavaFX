@@ -163,6 +163,7 @@ public abstract class MapPane extends AnchorPane {
     }
 
     private void spawnRandomItem() {
+//    	System.out.println("[DEBUG] create item");
         BasePowerUp powerUp = PowerUpFactory.createRandomPowerUp();
         
         double randomX = MIN_SPAWN_X + Math.random() * (MAX_SPAWN_X - MIN_SPAWN_X);
@@ -231,10 +232,14 @@ public abstract class MapPane extends AnchorPane {
         transition.play();
     }
 
-    protected void cleanup() {
+    public void cleanup() {
+//    	System.out.println("CLEANING UP");
         if (itemSpawner != null) {
             itemSpawner.stop();
+            itemSpawner = null;
         }
-        activePowerUps.clear();
+        if (activePowerUps != null) {
+        	activePowerUps.clear();        	
+        }
     }
 }

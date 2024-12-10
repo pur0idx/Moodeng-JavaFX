@@ -52,7 +52,8 @@ public class ExitButton extends ImageView {
                 character.setDead(true);
                 GameLogic.setIsGameOver(true);
                 GameLogic.stopGame();  // Stop game loop
-                Main.getInstance().changeScene(new MapSelectorPane());
+                MapSelectorPane.activeMapPane.cleanup();
+                Main.getInstance().changeScene(MapSelectorPane.getInstance());
             } catch (Exception e) {
                 e.printStackTrace();
             }

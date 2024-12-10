@@ -16,7 +16,8 @@ import main.Main;
 import sound.PlaySound;
 
 public class MapSelectorPane extends BorderPane {
-    private static MapSelectorPane instance;
+    public static MapSelectorPane instance;
+    public static MapPane activeMapPane;
     private final String[] MAP_NAMES = {"Beast", "Forest", "Jungle", "Apocalypse"};
     private final String[] MAP_FILES = {"beast.gif", "forest.gif", "jungle.gif", "apocalypse.gif"};
     private final String[] MAP_DESCRIPTIONS = {
@@ -26,11 +27,13 @@ public class MapSelectorPane extends BorderPane {
         "A desolate wasteland where only the strongest survive"
     };
     
+    
     public MapSelectorPane() {
         instance = this;
         setupBackground();
         createContent();
     }
+    
     
     private void setupBackground() {
         try {
@@ -203,15 +206,21 @@ public class MapSelectorPane extends BorderPane {
         setupButtonStyle(button);
         
         button.setOnAction(e -> {
+        	if (activeMapPane != null) {
+        		activeMapPane.cleanup();
+				activeMapPane = null;
+			}
+//        	System.out.println("SELECT MAP CLICK");
         try {
 //            PlaySound.playBackgroundMusic().stop();
             GameLogic.setCurrentMap(MAP_NAMES[index] + "Map");
             switch(index) {
-            	case 0 -> Main.getInstance().changeScene(new BeastMapPane());
-            	case 1 -> Main.getInstance().changeScene(new ForestMapPane());
-            	case 2 -> Main.getInstance().changeScene(new JungleMapPane());
-            	case 3 -> Main.getInstance().changeScene(new ApocalypseMapPane());
+            	case 0 -> activeMapPane = new BeastMapPane();
+            	case 1 -> activeMapPane = new ForestMapPane();
+            	case 2 -> activeMapPane = new JungleMapPane();
+            	case 3 -> activeMapPane = new ApocalypseMapPane();
             }
+            Main.getInstance().changeScene(activeMapPane);
         } catch (Exception ex) {
             System.err.println("Error changing map: " + ex.getMessage());
             ex.printStackTrace();

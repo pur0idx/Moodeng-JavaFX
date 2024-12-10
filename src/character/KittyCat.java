@@ -242,8 +242,8 @@ public class KittyCat extends BaseEnemy implements Movable, Biter, Jumpable {
 	@Override
 	public void move() {
 	    // Get player's actual screen position using translateX/Y instead of getPosX/Y
-	    double playerX = Moodeng.getInstance().getImageView().getTranslateX();
-	    double playerY = Moodeng.getInstance().getImageView().getTranslateY();
+	    double playerX = Moodeng.getInstance().getMoodengImageView().getTranslateX();
+	    double playerY = Moodeng.getInstance().getMoodengImageView().getTranslateY();
 	    
 	    // Get cat's current position using translateX/Y
 	    double catX = enemyImageView.getTranslateX();
