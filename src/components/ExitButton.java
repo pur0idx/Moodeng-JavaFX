@@ -34,6 +34,9 @@ public class ExitButton extends ImageView {
         setOnMouseReleased(event -> {
 //            PlaySound.playBackgroundMusic();
         });
+        
+        ScoreBoard.getInstance().resetScoreboard();
+        
 
         setOnMouseEntered(event -> setOpacity(0.8));
         setOnMouseExited(event -> setOpacity(1.0));
@@ -45,7 +48,7 @@ public class ExitButton extends ImageView {
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(event -> {
             try {
-                PlaySound.stopAllSounds();
+//                PlaySound.stopAllSounds();
                 character.setDead(true);
                 GameLogic.setIsGameOver(true);
                 GameLogic.stopGame();  // Stop game loop

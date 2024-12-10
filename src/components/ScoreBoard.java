@@ -128,6 +128,8 @@ public class ScoreBoard extends HBox {
     }
     
     public void resetScoreboard() {
+        Moodeng moodeng = Moodeng.getInstance();
+        moodeng.resetFruits();
         watermelonCount.setText("0");
         coconutCount.setText("0");
         bananaCount.setText("0");
