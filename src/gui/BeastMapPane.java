@@ -1,7 +1,5 @@
 package gui;
 
-import java.util.Random;
-
 import sound.PlaySound;
 
 public class BeastMapPane extends MapPane {
