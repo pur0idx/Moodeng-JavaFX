@@ -48,7 +48,7 @@ public class ExitButton extends ImageView {
         fadeOut.setOnFinished(event -> {
             try {
                 character.setDead(true);
-                GameLogic.setIsGameOver(true);
+//                GameLogic.setIsGameOver(true);
                 GameLogic.stopGame();  // Stop game loop
                 MapSelectorPane.activeMapPane.cleanup();
                 Main.getInstance().changeScene(MapSelectorPane.getInstance());

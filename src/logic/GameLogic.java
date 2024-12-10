@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class GameLogic {
-	private static boolean isGameOver = false;
+//	private static boolean isGameOver = false;
     private static final HashSet<KeyCode> activeKeys = new HashSet<>();
     private static final HashMap<String, Integer> highScores = new HashMap<>();
     private static AnimationTimer gameLoop;
@@ -74,10 +74,10 @@ public class GameLogic {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (isGameOver) {
-                    this.stop();
-                    return;
-                }
+//                if (isGameOver) {
+//                    this.stop();
+//                    return;
+//                }
 
                 // Handle player movement
                 if (activeKeys.contains(KeyCode.LEFT) || activeKeys.contains(KeyCode.A)) {
@@ -115,13 +115,13 @@ public class GameLogic {
         return highScores.getOrDefault(mapName, 0);
     }
 
-    public static boolean isGameOver() {
-        return isGameOver;
-    }
-
-    public static void setIsGameOver(boolean gameOver) {
-        isGameOver = gameOver;
-    }
+//    public static boolean isGameOver() {
+//        return isGameOver;
+//    }
+//
+//    public static void setIsGameOver(boolean gameOver) {
+//        isGameOver = gameOver;
+//    }
 
     public static void stopGame() {
         if (gameLoop != null) {

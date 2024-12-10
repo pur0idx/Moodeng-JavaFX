@@ -130,7 +130,6 @@ public abstract class MapPane extends AnchorPane {
 
     protected void setupGame() {
         setFocusTraversable(true);
-        GameLogic.setIsGameOver(false);
         GameLogic.getPlayerInput(this);
         GameLogic.updateGame(this);
     }
