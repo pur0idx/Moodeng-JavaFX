@@ -79,13 +79,15 @@ public abstract class MapPane extends AnchorPane {
     
     private void setupGround(String groundFileName) {
         try {
-            Image groundImage = new Image(ClassLoader.getSystemResource(groundFileName).toString());
-            ImageView groundImageView = new ImageView(groundImage);
-            groundImageView.setFitWidth(WINDOW_WIDTH);
-            groundImageView.setPreserveRatio(true);
-            setBottomAnchor(groundImageView, 0.0);
-            setLeftAnchor(groundImageView, 0.0);
-            getChildren().add(groundImageView);
+        	if (groundFileName != "") {
+        		Image groundImage = new Image(ClassLoader.getSystemResource(groundFileName).toString());
+                ImageView groundImageView = new ImageView(groundImage);
+                groundImageView.setFitWidth(WINDOW_WIDTH);
+                groundImageView.setPreserveRatio(true);
+                setBottomAnchor(groundImageView, 0.0);
+                setLeftAnchor(groundImageView, 0.0);
+                getChildren().add(groundImageView);
+        	}
         } catch (Exception e) {
             System.err.println("Error loading ground: " + e.getMessage());
         }
@@ -96,6 +98,7 @@ public abstract class MapPane extends AnchorPane {
         moodeng.setPosX(50);
         
         ImageView moodengView = moodeng.getMoodengImageView();
+        moodengView.setTranslateX(moodeng.getPosX());
         if (moodengView != null) {
             setTopAnchor(moodengView, CHARACTER_Y);
             setLeftAnchor(moodengView, moodeng.getPosX());

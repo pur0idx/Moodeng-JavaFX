@@ -6,7 +6,7 @@ public class ApocalypseMapPane extends MapPane{
 	private static ApocalypseMapPane instance;
 	
 	public ApocalypseMapPane() {
-        super("ApocalypseMap", "apocalypse.gif", "apocalypse_ground.png");
+        super("ApocalypseMap", "apocalypse.gif", "");
         PlaySound.playApocalypseMusic();
     }
     

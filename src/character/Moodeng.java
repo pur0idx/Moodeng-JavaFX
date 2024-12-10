@@ -106,6 +106,10 @@ public class Moodeng extends Entity implements Movable, Jumpable {
                 stopAllAnimations();
                 walkLeftAnimation.play();
             }
+            
+            if(!isJumping) {
+            	walkLeftAnimation.play();
+            }
         }
     }
     
@@ -119,6 +123,10 @@ public class Moodeng extends Entity implements Movable, Jumpable {
                 facingRight = true;
                 stopAllAnimations();
                 walkRightAnimation.play();
+            }
+            
+            if(!isJumping) {
+            	walkRightAnimation.play();
             }
         }
     }

@@ -62,7 +62,7 @@ public class Main extends Application {
             }
         }
         
-        gameWindow.setResizable(true);
+        gameWindow.setResizable(false);
         gameWindow.show();
     }
 

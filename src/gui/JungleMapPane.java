@@ -6,7 +6,7 @@ public class JungleMapPane extends MapPane{
 	private static JungleMapPane instance;
 	
 	public JungleMapPane() {
-		super("JungleMap", "jungle.gif", "jungle_ground.png");
+		super("JungleMap", "jungle.gif", "");
 		PlaySound.playJungleMusic();
     }
     

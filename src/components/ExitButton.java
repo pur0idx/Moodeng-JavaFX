@@ -4,6 +4,8 @@ import javafx.animation.FadeTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import logic.GameLogic;
 import main.Main;
@@ -40,7 +42,7 @@ public class ExitButton extends ImageView {
     }
     
     private void fadeExitTransition(AnchorPane parentPane, Entity character) {
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), parentPane);
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), parentPane);	
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(event -> {
