@@ -15,9 +15,7 @@ import gui.MapSelectorPane;
 public class ExitButton extends ImageView {
     
     public ExitButton() {
-        super(new Image(ClassLoader.getSystemResource("Exit.png").toString()));
-        setFitWidth(110);
-        setFitHeight(44);
+    	super(new Image(ClassLoader.getSystemResource("Exit.png").toString(), 110, 44, true, false));
         
         AnchorPane.setBottomAnchor(this, 20.0);
         AnchorPane.setRightAnchor(this, 20.0);
@@ -25,7 +23,6 @@ public class ExitButton extends ImageView {
     
     public void setupExitHandler(AnchorPane parentPane, String mapName, Moodeng character) {
         setOnMouseClicked(event -> {
-//            PlaySound.stopMusic();
             PlaySound.playSound("exit");
             GameLogic.setHighScoreEachMap(mapName, character.getScore());
             fadeExitTransition(parentPane, character);
@@ -48,7 +45,6 @@ public class ExitButton extends ImageView {
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(event -> {
             try {
-//                PlaySound.stopAllSounds();
                 character.setDead(true);
                 GameLogic.setIsGameOver(true);
                 GameLogic.stopGame();  // Stop game loop
