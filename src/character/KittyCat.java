@@ -34,10 +34,16 @@ public class KittyCat extends BaseEnemy implements Movable, Biter, Jumpable {
 
 	protected Image jumpSprite;
 	protected Image fallSprite;
+	
+	private Timeline jumpCooldown;
+    private boolean canJump = true;
 
 	public KittyCat() {
 		super(50, 10, 2.0, SPRITE_WIDTH, SPRITE_HEIGHT, IDLE_FRAMES);
 		setupIdleAnimation();
+		setupMoveAnimation();
+	    setupJumpAnimation();
+	    setupFallAnimation();
 		setupGravity();
 		setupMovement();
 	}
@@ -159,21 +165,28 @@ public class KittyCat extends BaseEnemy implements Movable, Biter, Jumpable {
 	}
 
 	private void startMoveAnimation() {
-		if (!isJumping && !isFalling) {
-			stopAllAnimations();
-			moveAnimation.play();
-		}
+	    if (!isJumping && !isFalling) {
+	        stopAllAnimations();
+	        if (moveAnimation != null) {
+	            moveAnimation.play();
+	        } else {
+	            setupMoveAnimation();
+	            moveAnimation.play();
+	        }
+	    }
 	}
 
 	@Override
 	public void jump() {
-		if (!isJumping && !isFalling) {
-			isJumping = true;
-			verticalVelocity = JUMP_FORCE;
-			stopAllAnimations();
-			setupJumpAnimation();
-			jumpAnimation.play();
-		}
+	    if (!isJumping && !isFalling && canJump) {
+	        isJumping = true;
+	        canJump = false;
+	        verticalVelocity = JUMP_FORCE;
+	        stopAllAnimations();
+	        setupJumpAnimation();
+	        jumpAnimation.play();
+	        jumpCooldown.playFromStart();
+	    }
 	}
 
 	private void setupGravity() {
@@ -228,7 +241,36 @@ public class KittyCat extends BaseEnemy implements Movable, Biter, Jumpable {
 
 	@Override
 	public void move() {
-		// movement logic
+	    // Get player's actual screen position using translateX/Y instead of getPosX/Y
+	    double playerX = Moodeng.getInstance().getImageView().getTranslateX();
+	    double playerY = Moodeng.getInstance().getImageView().getTranslateY();
+	    
+	    // Get cat's current position using translateX/Y
+	    double catX = enemyImageView.getTranslateX();
+	    double catY = enemyImageView.getTranslateY();
+	    
+	    double distanceX = playerX - catX;
+	    double distanceY = playerY - catY;
+	    double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+	    
+	    double attackRange = 50.0;
+	    
+	    if (distance < attackRange) {
+	        attack();
+	    } else if (!isJumping && !isFalling) {  // Only move if on ground
+	        if (Math.abs(distanceX) > 10) {  // Add a small threshold to prevent jittering
+	            if (distanceX > 0) {
+	                moveRight();
+	            } else {
+	                moveLeft();
+	            }
+	        }
+	        
+	        // Only jump if player is significantly above and we're not too close horizontally
+	        if (distanceY < -100 && Math.abs(distanceX) < 100) {
+	            jump();
+	        }
+	    }
 	}
 
 	private void stopAllAnimations() {

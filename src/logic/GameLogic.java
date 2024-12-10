@@ -1,6 +1,7 @@
 package logic;
 
 import character.Moodeng;
+import components.ScoreBoard;
 import gui.ForestMapPane;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
@@ -110,6 +111,39 @@ public class GameLogic {
     public static void stopGame() {
         if (gameLoop != null) {
             gameLoop.stop();
+        }
+    }
+    
+    public static void checkFruitCollision(AnchorPane gamePane, ImageView fruit, String fruitType) {
+        if (fruit != null && fruit.isVisible()) {
+            Moodeng player = Moodeng.getInstance();
+            if (player.getMoodengImageView().getBoundsInParent().intersects(fruit.getBoundsInParent())) {
+                boolean collected = false;
+                
+                switch(fruitType) {
+                    case "watermelon":
+                        player.addWatermelon();
+                        collected = true;
+                        break;
+                    case "coconut":
+                        player.addCoconut();
+                        collected = true;
+                        break;
+                    case "banana":
+                        player.addBanana();
+                        collected = true;
+                        break;
+                    case "pineapple":
+                        player.addPineapple();
+                        collected = true;
+                        break;
+                }
+                
+                if (collected) {
+                    ScoreBoard.getInstance().updateFruitCount(fruitType);
+                    fruit.setVisible(false);
+                }
+            }
         }
     }
 }
