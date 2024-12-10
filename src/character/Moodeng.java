@@ -1,5 +1,6 @@
 package character;
 
+import components.ScoreBoard;
 import interfaces.Jumpable;
 import interfaces.Movable;
 import javafx.animation.Animation;
@@ -31,6 +32,11 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     private static final int SPRITE_HEIGHT = 128;
     private static final int SPRITESHEET_WIDTH = 512;
     private static final int FRAMES_PER_ROW = 4;
+    
+    private int watermelons = 0;
+    private int coconuts = 0;
+    private int bananas = 0;
+    private int pineapples = 0;
     
     public Moodeng() {
         this.setPosX(0);
@@ -199,4 +205,30 @@ public class Moodeng extends Entity implements Movable, Jumpable {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void addWatermelon() {
+	    watermelons++;
+	    ScoreBoard.getInstance().updateFruitCount("watermelon");
+	}
+
+	public void addCoconut() {
+	    coconuts++;
+	    ScoreBoard.getInstance().setScoreboard();
+	}
+
+	public void addBanana() {
+	    bananas++;
+	    ScoreBoard.getInstance().setScoreboard();
+	}
+
+	public void addPineapple() {
+	    pineapples++;
+	    ScoreBoard.getInstance().setScoreboard();
+	}
+
+	public int getWatermelons() { return watermelons; }
+	public int getCoconuts() { return coconuts; }
+	public int getBananas() { return bananas; }
+	public int getPineapples() { return pineapples; }
+
 }
