@@ -115,7 +115,7 @@ public abstract class MapPane extends AnchorPane {
         getChildren().add(scoreBoard);
         
         buffIndicator = BuffIndicator.getInstance();
-        buffIndicator.setSpeedDisplayUsingCurrent();
+        buffIndicator.setCurrentSpeedDisplay();
         setTopAnchor(buffIndicator, 20.0);
         setLeftAnchor(buffIndicator, 20.0);
         

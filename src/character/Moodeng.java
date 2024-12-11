@@ -1,10 +1,15 @@
 package character;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import components.BuffIndicator;
 import components.ScoreBoard;
 import interfaces.Jumpable;
 import interfaces.Movable;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.animation.Interpolator;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.animation.KeyFrame;
@@ -25,7 +30,15 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     private Image rightIdleSprite;
     private Image leftIdleSprite;
     private boolean isJumping = false;
+    private boolean isDash = false;
+    private boolean isDashOnCooldown = false;
+    private boolean isGravity = true;
+    private Timeline cooldownTimeline;
+    private long lastDashTime = 0;
     private double velocityY = 0;
+    private final long DASH_COOLDOWN_MS = 2000;
+    private final long DASH_DURATION = 150;
+    private final long DASH_IGNORE_GRAVITY_DURATION = 50;
     private final double GRAVITY = 0.5;
     private final double INITIAL_JUMP_VELOCITY = -10;
     
@@ -97,6 +110,7 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     
     @Override
     public void moveLeft() {
+    	if(isDash) return;
         if (getPosX() + 70 > 0) {
             setPosX(getPosX() - getSpeed());
             moodengImageView.setTranslateX(getPosX());
@@ -115,6 +129,7 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     
     @Override
     public void moveRight() {
+    	if(isDash) return;
         if (getPosX() + 30 < 1280 - SPRITE_WIDTH) {
             setPosX(getPosX() + getSpeed());
             moodengImageView.setTranslateX(getPosX());
@@ -150,7 +165,7 @@ public class Moodeng extends Entity implements Movable, Jumpable {
     
     @Override
     public void jump() {
-        if (isJumping) return;
+        if (isJumping || isDash) return;
         
         PlaySound.playSound("jump");
 
@@ -163,6 +178,7 @@ public class Moodeng extends Entity implements Movable, Jumpable {
         AnimationTimer jumpTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+            	if(!isGravity) return;
                 velocityY += GRAVITY;
                 setPosY(getPosY() + velocityY);
                 moodengImageView.setTranslateY(getPosY());
@@ -177,6 +193,77 @@ public class Moodeng extends Entity implements Movable, Jumpable {
             }
         };
         jumpTimer.start();
+    }
+    
+    public void dash() {
+        if (isDash || isDashOnCooldown) return;
+
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastDashTime < DASH_COOLDOWN_MS) {
+            return;
+        }
+
+        isDash = true;
+        isDashOnCooldown = true;
+        lastDashTime = currentTime;
+
+        if (cooldownTimeline != null) {
+            cooldownTimeline.stop();
+        }
+
+        stopAllAnimations();
+        
+        double dashDistance = getSpeed() * 100;
+        double currentTranslateX = moodengImageView.getTranslateX();
+        double newTranslateX;
+        
+        if (facingRight) {
+            newTranslateX = Math.min(currentTranslateX + dashDistance, 1280 - SPRITE_WIDTH);
+            walkRightAnimation.play();
+        } else {
+            newTranslateX = Math.max(currentTranslateX - dashDistance, - SPRITE_WIDTH/2);
+            walkLeftAnimation.play();
+        }
+        
+        setPosX(newTranslateX);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(DASH_DURATION), moodengImageView);
+        translateTransition.setFromX(currentTranslateX);
+        translateTransition.setToX(newTranslateX);
+        translateTransition.setOnFinished(event -> isDash = false);
+        translateTransition.play();
+        translateTransition.setInterpolator(Interpolator.EASE_IN);
+        
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                isDashOnCooldown = false;
+            }
+        }, DASH_COOLDOWN_MS);
+        
+        cooldownTimeline = new Timeline(new KeyFrame(Duration.millis(10), e -> {
+        	BuffIndicator.getInstance().setCurrentDashCooldownDisplay();
+        	if(getDashCooldownRemaining() == 0) {
+        		cooldownTimeline.stop();
+        	}
+        	if(getDashCooldownRemaining() > DASH_COOLDOWN_MS - DASH_DURATION) {
+        		isGravity = false;
+        	}else {
+        		isGravity = true;
+        	}
+        }));
+        
+        cooldownTimeline.setCycleCount(Timeline.INDEFINITE);
+        cooldownTimeline.play();
+    }
+    
+    public boolean isDashAvailable() {
+        return !isDash && !isDashOnCooldown;
+    }
+    
+    public long getDashCooldownRemaining() {
+        long timeSinceLastDash = System.currentTimeMillis() - lastDashTime;
+        return Math.max(0, DASH_COOLDOWN_MS - timeSinceLastDash);
     }
     
     public void shoot() {

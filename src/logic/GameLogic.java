@@ -51,7 +51,7 @@ public class GameLogic {
     public static void getPlayerInput(AnchorPane gamePane) {
         gamePane.setOnKeyPressed(event -> {
             activeKeys.add(event.getCode());
-            if (event.getCode() == KeyCode.SPACE) {
+            if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.UP || event.getCode() == KeyCode.W) {
                 Moodeng.getInstance().jump();
             }
         });
@@ -85,6 +85,9 @@ public class GameLogic {
                 }
                 if (activeKeys.contains(KeyCode.RIGHT) || activeKeys.contains(KeyCode.D)) {
                     Moodeng.getInstance().moveRight();
+                }
+                if (activeKeys.contains(KeyCode.SHIFT)) {
+                	Moodeng.getInstance().dash();
                 }
                 
                 // Check fruit collisions

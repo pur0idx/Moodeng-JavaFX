@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -41,7 +42,8 @@ public class AboutPane extends BorderPane {
     private void createContent() {
         VBox contentBox = new VBox(20);
         contentBox.setAlignment(Pos.CENTER);
-        contentBox.setMaxWidth(700);
+        contentBox.setMaxWidth(1100);
+        contentBox.setMaxHeight(650);
         contentBox.setPadding(new Insets(30));
         contentBox.setStyle(
             "-fx-background-color: rgba(0, 0, 0, 0.8);" +
@@ -58,7 +60,7 @@ public class AboutPane extends BorderPane {
         
         VBox instructionsBox = createInstructionsBox();
         
-        Button backButton = new Button("BACK TO MAP SELECTION");
+        Button backButton = new Button("BACK");
         backButton.setFont(Font.font("Monospace", FontWeight.BOLD, 18));
         backButton.setPrefWidth(250);
         setupButtonStyle(backButton);
@@ -79,47 +81,17 @@ public class AboutPane extends BorderPane {
     
     private VBox createInstructionsBox() {
         VBox box = new VBox(15);
-        box.setAlignment(Pos.CENTER_LEFT);
+        box.setAlignment(Pos.CENTER);
         
-        addSection(box, "OBJECTIVE", 
-            "Navigate through dangers, collect coins, and survive obstacles to achieve the highest score!");
-                
-        addSection(box, "CONTROLS",
-            "W/UP: Jump\n" +
-            "A/LEFT: Move Left\n" +
-            "D/RIGHT: Move Right\n" +
-            "SPACE: Shoot");
-                
-        addSection(box, "SCORING",
-            "Coins: +10 points\n" +
-            "Enemies: +50 points\n" +
-            "Level Complete: +100 points");
-                
-        addSection(box, "POWER-UPS",
-            "Health Potion: Restore HP\n" +
-            "Shield: Temporary invincibility\n" +
-            "Double Jump: Extra jump ability");
-                
-        addSection(box, "TIPS",
-            "• Watch for obstacles\n" +
-            "• Time your jumps\n" +
-            "• Use power-ups wisely\n" +
-            "• Keep moving");
+        Image howToImage = new Image(ClassLoader.getSystemResource("howto.png").toString());
+        ImageView imageView = new ImageView(howToImage);
+        
+        imageView.setFitWidth(900);
+        imageView.setPreserveRatio(true);
+        
+        box.getChildren().add(imageView);
         
         return box;
-    }
-    
-    private void addSection(VBox parent, String title, String content) {
-        Text titleText = new Text(title);
-        titleText.setFont(Font.font("Monospace", FontWeight.BOLD, 22));
-        titleText.setFill(Color.WHITE);
-        
-        Text contentText = new Text(content);
-        contentText.setFont(Font.font("Monospace", FontWeight.NORMAL, 14));
-        contentText.setFill(Color.LIGHTGRAY);
-        contentText.setTextAlignment(TextAlignment.LEFT);
-        
-        parent.getChildren().addAll(titleText, contentText);
     }
     
     private void setupButtonStyle(Button button) {

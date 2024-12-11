@@ -100,6 +100,6 @@ public abstract class BaseFruit extends ImageView implements Collectible, Tempor
 	public abstract FruitType getFruitType();
 	
 	public void updateSpeedIndicator() {
-		BuffIndicator.getInstance().setSpeedDisplayUsingCurrent();
+		BuffIndicator.getInstance().setCurrentSpeedDisplay();
 	}
 }
