@@ -1,0 +1,450 @@
+@startuml
+abstract class Entity [[java:character.Entity]] {
+	-posX: double
+	-posY: double
+	-speed: double
+	-isDead: boolean
+	+getXPos(): double
+	+getPosX(): double
+	+setPosX(posX: double): void
+	+getPosY(): double
+	+setPosY(posY: double): void
+	+getSpeed(): double
+	+setSpeed(speed: double): void
+	+isDead(): boolean
+	+setDead(isDead: boolean): void
+}
+class Moodeng [[java:character.Moodeng]] {
+	-{static} instance: Moodeng
+	-score: int
+	-delayShoot: double
+	-moodengImageView: ImageView
+	-walkRightAnimation: Animation
+	-walkLeftAnimation: Animation
+	-facingRight: boolean
+	-rightIdleSprite: Image
+	-leftIdleSprite: Image
+	-isJumping: boolean
+	-velocityY: double
+	-GRAVITY: double
+	-INITIAL_JUMP_VELOCITY: double
+	-{static} SPRITE_WIDTH: int
+	-{static} SPRITE_HEIGHT: int
+	-{static} SPRITESHEET_WIDTH: int
+	-{static} FRAMES_PER_ROW: int
+	-watermelonCount: int
+	-coconutCount: int
+	-bananaCount: int
+	-pineappleCount: int
+	+Moodeng()
+	-initMoodengImageView(): void
+	-initAnimations(): void
+	-createAnimation(spriteSheet: Image, frameCount: int, duration: Duration): Animation
+	+moveLeft(): void
+	+moveRight(): void
+	-stopAllAnimations(): void
+	+idle(): void
+	+jump(): void
+	+shoot(): void
+	+getMoodengImageView(): ImageView
+	+{static} getInstance(): Moodeng
+	+getScore(): int
+	+setScore(score: int): void
+	+getDelayShoot(): double
+	+setDelayShoot(delayShoot: double): void
+	+setInvincible(b: boolean): void
+	+addWatermelon(): void
+	+addCoconut(): void
+	+addBanana(): void
+	+addPineapple(): void
+	+setWatermelons(watermelons: int): void
+	+setBananas(bananas: int): void
+	+setPineapples(pineapples: int): void
+	+setCoconuts(coconuts: int): void
+	+resetFruits(): void
+	+getWatermelons(): int
+	+getCoconuts(): int
+	+getBananas(): int
+	+getPineapples(): int
+}
+class Entity {
+}
+Entity <|-- Moodeng
+interface Movable {
+}
+Movable <|.. Moodeng
+interface Jumpable {
+}
+Jumpable <|.. Moodeng
+class ScoreBoard [[java:components.ScoreBoard]] {
+	-{static} instance: ScoreBoard
+	-watermelonCount: Label
+	-coconutCount: Label
+	-bananaCount: Label
+	-pineappleCount: Label
+	-ScoreBoard()
+	-createFruitCounter(imageName: String): Label
+	+{static} isFruit(imageView: ImageView): boolean
+	+{static} getFruitType(imageView: ImageView): String
+	+updateFruitCount(fruitType: FruitType): void
+	+incrementFruitCount(fruitType: FruitType): void
+	+setScoreboard(): void
+	+resetScoreboard(): void
+	+{static} getInstance(): ScoreBoard
+}
+class HBox {
+}
+HBox <|-- ScoreBoard
+class SoundButton [[java:components.SoundButton]] {
+	-{static} SOUND_BUTTON_SIZE: int
+	-{static} currentMusicState: boolean
+	+{static} createMusicButton(initialMusicState: boolean, listener: OnMusicToggleListener): Button
+	-{static} createImageView(isMusicPlaying: boolean): ImageView
+}
+class ExitButton [[java:components.ExitButton]] {
+	+ExitButton()
+	+setupExitHandler(parentPane: AnchorPane, mapName: String, character: Moodeng): void
+	-fadeExitTransition(parentPane: AnchorPane, character: Entity): void
+}
+class ImageView {
+}
+ImageView <|-- ExitButton
+class BuffIndicator [[java:components.BuffIndicator]] {
+	-label: Label
+	-{static} instance: BuffIndicator
+	+BuffIndicator()
+	+setSpeedDisplay(d: double): void
+	+setSpeedDisplayUsingCurrent(): void
+	+{static} getInstance(): BuffIndicator
+}
+class Moodeng {
+}
+BuffIndicator --> "1" Moodeng : moodeng
+class HBox {
+}
+HBox <|-- BuffIndicator
+class AboutPane [[java:gui.AboutPane]] {
+	-{static} instance: AboutPane
+	-AboutPane()
+	-setupBackground(): void
+	-createContent(): void
+	-createInstructionsBox(): VBox
+	-addSection(parent: VBox, title: String, content: String): void
+	-setupButtonStyle(button: Button): void
+	+{static} getInstance(): AboutPane
+}
+class BorderPane {
+}
+BorderPane <|-- AboutPane
+abstract class MapPane [[java:gui.MapPane]] {
+	#{static} WINDOW_WIDTH: double
+	#{static} WINDOW_HEIGHT: double
+	#{static} GROUND_Y: double
+	#{static} CHARACTER_Y: double
+	-{static} SPAWN_INTERVAL: double
+	-{static} MIN_SPAWN_X: double
+	-{static} MAX_SPAWN_X: double
+	#itemSpawner: Timeline
+	+MapPane(mapName: String, backgroundFileName: String, groundFileName: String)
+	-setupBackground(backgroundFileName: String): void
+	-setupGround(groundFileName: String): void
+	#initializeCharacter(): void
+	-setupHUD(): void
+	-setupExitButton(mapName: String): void
+	#setupGame(): void
+	#{abstract} customMapSetup(): void
+	+{static} getWindowWidth(): double
+	+{static} getWindowHeight(): double
+	-setupItemSpawner(): void
+	-spawnRandomItem(): void
+	-setupCollisionDetection(): void
+	-checkCollisions(): void
+	-showPowerUpText(effectName: String): void
+	+cleanup(): void
+}
+class BaseFruit {
+}
+MapPane --> "*" BaseFruit : activePowerUps
+class ScoreBoard {
+}
+MapPane --> "1" ScoreBoard : scoreBoard
+class Moodeng {
+}
+MapPane --> "1" Moodeng : moodeng
+class BuffIndicator {
+}
+MapPane --> "1" BuffIndicator : buffIndicator
+class AnchorPane {
+}
+AnchorPane <|-- MapPane
+class JungleMapPane [[java:gui.JungleMapPane]] {
+	-{static} instance: JungleMapPane
+	+JungleMapPane()
+	#customMapSetup(): void
+	+toString(): String
+	+{static} getInstance(): JungleMapPane
+}
+class MapPane {
+}
+MapPane <|-- JungleMapPane
+class ForestMapPane [[java:gui.ForestMapPane]] {
+	-{static} instance: ForestMapPane
+	+ForestMapPane()
+	#customMapSetup(): void
+	+toString(): String
+	+{static} getInstance(): ForestMapPane
+}
+class MapPane {
+}
+MapPane <|-- ForestMapPane
+class MapSelectorPane [[java:gui.MapSelectorPane]] {
+	+{static} instance: MapSelectorPane
+	+{static} activeMapPane: MapPane
+	-MAP_NAMES: String[]
+	-MAP_FILES: String[]
+	-MAP_DESCRIPTIONS: String[]
+	+MapSelectorPane()
+	-setupBackground(): void
+	-createContent(): void
+	-createMapsGrid(): GridPane
+	-createMapCard(index: int): VBox
+	-createPlayButton(index: int): Button
+	-setupButtonStyle(button: Button): void
+	-setupCardHoverEffect(card: VBox): void
+	+{static} getInstance(): MapSelectorPane
+	+{static} resetInstance(): void
+}
+class BorderPane {
+}
+BorderPane <|-- MapSelectorPane
+class ApocalypseMapPane [[java:gui.ApocalypseMapPane]] {
+	-{static} instance: ApocalypseMapPane
+	+ApocalypseMapPane()
+	#customMapSetup(): void
+	+toString(): String
+	+{static} getInstance(): ApocalypseMapPane
+}
+class MapPane {
+}
+MapPane <|-- ApocalypseMapPane
+class BeastMapPane [[java:gui.BeastMapPane]] {
+	-{static} instance: BeastMapPane
+	+BeastMapPane()
+	#customMapSetup(): void
+	+toString(): String
+	+{static} getInstance(): BeastMapPane
+}
+class MapPane {
+}
+MapPane <|-- BeastMapPane
+class LoginPane [[java:gui.LoginPane]] {
+	-{static} instance: LoginPane
+	-{static} playerName: String
+	-nameInput: TextField
+	-isMusicPlaying: boolean
+	-{static} LOGO_WIDTH: double
+	-{static} SPACING: int
+	-LoginPane()
+	-initializeLoginScreen(): void
+	-onMusicToggle(newMusicState: boolean): void
+	-createLogo(): ImageView
+	-createNameField(): TextField
+	-createPlayButton(): Button
+	-createBackground(): Background
+	-startGame(name: String): void
+	-getDefaultFieldStyle(): String
+	-getHoverFieldStyle(): String
+	-getWarningFieldStyle(): String
+	-getDefaultButtonStyle(): String
+	-getHoverButtonStyle(): String
+	+{static} getPlayerName(): String
+	+{static} setPlayerName(name: String): void
+	+{static} getInstance(): LoginPane
+	+{static} resetInstance(): void
+	+isMusicPlaying(): boolean
+	+setMusicPlaying(isMusicPlaying: boolean): void
+}
+class AnchorPane {
+}
+AnchorPane <|-- LoginPane
+interface Temporal [[java:interfaces.Temporal]] {
+	getDuration(): double
+	isExpired(): boolean
+	startTimer(): void
+	stopTimer(): void
+}
+interface Movable [[java:interfaces.Movable]] {
+	moveLeft(): void
+	moveRight(): void
+}
+interface Jumpable [[java:interfaces.Jumpable]] {
+	jump(): void
+}
+interface PowerUpEffect [[java:interfaces.PowerUpEffect]] {
+	applyEffect(moodeng: Moodeng): void
+	removeEffect(moodeng: Moodeng): void
+	getEffectName(): String
+}
+interface Collectible [[java:interfaces.Collectible]] {
+	onCollect(moodeng: Moodeng): void
+	getScoreValue(): int
+	playCollectSound(): void
+}
+class GameLogic [[java:logic.GameLogic]] {
+	-{static} activeKeys: HashSet<KeyCode>
+	-{static} highScores: HashMap<String,Integer>
+	-{static} gameLoop: AnimationTimer
+	-{static} currentMap: String
+	+{static} getCurrentMap(): String
+	+{static} setCurrentMap(mapName: String): void
+	+{static} getGroundImage(imageName: String): ImageView
+	+{static} getPlayerInput(gamePane: AnchorPane): void
+	+{static} updateGame(gamePane: AnchorPane): void
+	+{static} setHighScoreEachMap(mapName: String, score: int): void
+	+{static} getHighScore(mapName: String): int
+	+{static} stopGame(): void
+	+{static} checkFruitCollision(gamePane: AnchorPane, fruit: BaseFruit): void
+}
+class Main [[java:main.Main]] {
+	-{static} instance: Main
+	-gameWindow: Stage
+	-gameScene: Scene
+	-INITIAL_WIDTH: int
+	-INITIAL_HEIGHT: int
+	-ASPECT_RATIO: double
+	-isResizing: boolean
+	+start(stage: Stage): void
+	+changeScene(newScreen: Parent): void
+	-setGameCursor(): void
+	+{static} getInstance(): Main
+	+{static} main(args: String[]): void
+}
+class Application {
+}
+Application <|-- Main
+class Banana [[java:objects.Banana]] {
+	-{static} SPEED_MULTIPLIER: double
+	+Banana()
+	+applyEffect(moodeng: Moodeng): void
+	+removeEffect(moodeng: Moodeng): void
+	+getScoreValue(): int
+}
+class FruitType {
+}
+Banana --> "1" FruitType : getFruitType()
+class BaseFruit {
+}
+BaseFruit <|-- Banana
+class Coconut [[java:objects.Coconut]] {
+	+Coconut()
+	+applyEffect(moodeng: Moodeng): void
+	+removeEffect(moodeng: Moodeng): void
+	+getScoreValue(): int
+}
+class FruitType {
+}
+Coconut --> "1" FruitType : getFruitType()
+class BaseFruit {
+}
+BaseFruit <|-- Coconut
+class FruitFactory [[java:objects.FruitFactory]] {
+	-{static} random: Random
+	+{static} createRandomPowerUp(): BaseFruit
+}
+class Watermelon [[java:objects.Watermelon]] {
+	-{static} SPEED_MULTIPLIER: double
+	+Watermelon()
+	+applyEffect(moodeng: Moodeng): void
+	+removeEffect(moodeng: Moodeng): void
+	+getScoreValue(): int
+}
+class FruitType {
+}
+Watermelon --> "1" FruitType : getFruitType()
+class BaseFruit {
+}
+BaseFruit <|-- Watermelon
+abstract class BaseFruit [[java:objects.BaseFruit]] {
+	#name: String
+	#duration: double
+	#effectTimer: Timeline
+	#spinTransition: RotateTransition
+	#isActive: boolean
+	#imageFile: String
+	+BaseFruit(name: String, imageFile: String, duration: double)
+	#setupImage(): void
+	#setupTimer(): void
+	#setupSpin(): void
+	+onCollect(moodeng: Moodeng): void
+	+playCollectSound(): void
+	+startTimer(): void
+	+stopTimer(): void
+	+getDuration(): double
+	+isExpired(): boolean
+	+getEffectName(): String
+	+updateSpeedIndicator(): void
+}
+class FruitType {
+}
+BaseFruit --> "1" FruitType : getFruitType()
+class ImageView {
+}
+ImageView <|-- BaseFruit
+interface Collectible {
+}
+Collectible <|.. BaseFruit
+interface Temporal {
+}
+Temporal <|.. BaseFruit
+interface PowerUpEffect {
+}
+PowerUpEffect <|.. BaseFruit
+class Pineapple [[java:objects.Pineapple]] {
+	+Pineapple()
+	+applyEffect(moodeng: Moodeng): void
+	+removeEffect(moodeng: Moodeng): void
+	+getScoreValue(): int
+}
+class FruitType {
+}
+Pineapple --> "1" FruitType : getFruitType()
+class BaseFruit {
+}
+BaseFruit <|-- Pineapple
+class PlaySound [[java:sound.PlaySound]] {
+	-{static} INSTANCE: PlaySound
+	+{static} backgroundMusic: AudioClip
+	+{static} forestMapBG: AudioClip
+	+{static} beastMapBG: AudioClip
+	+{static} jungleMapBG: AudioClip
+	+{static} apocalypseMapBG: AudioClip
+	+{static} exit: AudioClip
+	+{static} jump: AudioClip
+	+{static} collect: AudioClip
+	+{static} hit: AudioClip
+	-{static} DEFAULT_BGM_VOLUME: double
+	-{static} DEFAULT_EFFECTS_VOLUME: double
+	-PlaySound()
+	-loadSounds(): void
+	-loadAndSetupAudio(path: String, volume: double, loop: boolean): AudioClip
+	+{static} setBackgroundVolume(volume: double): void
+	+{static} setEffectsVolume(volume: double): void
+	+{static} playSound(soundName: String): void
+	+{static} playBackgroundMusic(): void
+	+{static} playForestMusic(): void
+	+{static} playBeastMusic(): void
+	+{static} playJungleMusic(): void
+	+{static} playApocalypseMusic(): void
+	+{static} stopMusic(): void
+	+{static} stopAllSounds(): void
+	+{static} stopAllMapBG(): void
+	+{static} getInstance(): PlaySound
+	+stop(): void
+}
+enum FruitType [[java:types.FruitType]] {
+	WATERMELON
+	COCONUT
+	BANANA
+	PINEAPPLE
+}
+@enduml

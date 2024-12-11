@@ -184,7 +184,7 @@ fabric.properties
 .metadata
 
 # puml
-UML.puml
-UML.png
-UML.svg
-UML.cmapx
+# UML.puml
+# UML.png
+# UML.svg
+# UML.cmapx
