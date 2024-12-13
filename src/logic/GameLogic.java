@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class GameLogic {
-//	private static boolean isGameOver = false;
     private static final HashSet<KeyCode> activeKeys = new HashSet<>();
     private static final HashMap<String, Integer> highScores = new HashMap<>();
     private static AnimationTimer gameLoop;
@@ -29,7 +28,7 @@ public class GameLogic {
 
     public static String getCurrentMap() {
         return currentMap;
-    }
+    }	
 
     public static void setCurrentMap(String mapName) {
         currentMap = mapName;
@@ -74,10 +73,6 @@ public class GameLogic {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-//                if (isGameOver) {
-//                    this.stop();
-//                    return;
-//                }
 
                 // Handle player movement
                 if (activeKeys.contains(KeyCode.LEFT) || activeKeys.contains(KeyCode.A)) {
@@ -90,12 +85,10 @@ public class GameLogic {
                 	Moodeng.getInstance().dash();
                 }
                 
-                // Check fruit collisions
                 for (Node node : gamePane.getChildren()) {
                     if (node instanceof ImageView && ScoreBoard.isFruit((ImageView)node)) {
                     	BaseFruit fruitView = (BaseFruit)node;
                         if (fruitView.isVisible()) {
-//                            String fruitType = ScoreBoard.getFruitType(fruitView);
                             checkFruitCollision(gamePane, fruitView);
                         }
                     }
@@ -117,14 +110,6 @@ public class GameLogic {
     public static int getHighScore(String mapName) {
         return highScores.getOrDefault(mapName, 0);
     }
-
-//    public static boolean isGameOver() {
-//        return isGameOver;
-//    }
-//
-//    public static void setIsGameOver(boolean gameOver) {
-//        isGameOver = gameOver;
-//    }
 
     public static void stopGame() {
         if (gameLoop != null) {

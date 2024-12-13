@@ -55,8 +55,6 @@ public abstract class MapPane extends AnchorPane {
         setupItemSpawner();
         setupCollisionDetection();
         
-//        PlaySound.stopAllMapBG();
-        
         setupGame();
         customMapSetup();
     }
